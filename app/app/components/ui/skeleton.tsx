@@ -1,4 +1,5 @@
 import * as React from "react";
+import { cn } from "@/lib/utils";
 
 const Skeleton = React.forwardRef<
   HTMLDivElement,
@@ -7,9 +8,5 @@ const Skeleton = React.forwardRef<
   <div className={cn("animate-pulse rounded-md bg-muted", className)} ref={ref} {...props} />
 ));
 Skeleton.displayName = "Skeleton";
-
-function cn(...classes: (string | false | undefined)[]) {
-  return classes.filter(Boolean).join(" ");
-}
 
 export { Skeleton };
