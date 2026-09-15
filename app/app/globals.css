@@ -479,34 +479,92 @@ body {
   border-radius: 12px;
   overflow: hidden;
   border: 1px solid #334155;
+  background: #252526;
 }
 
 .answer-code-lang {
-  background: #334155;
+  background: #2d2d2d;
   color: #94a3b8;
   padding: 6px 16px;
   font-size: 12px;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  border-bottom: 1px solid #475569;
+  border-bottom: 1px solid #404040;
+  font-family: "Fira Code", "Consolas", monospace;
 }
 
 .answer-code {
-  background: #0f172a;
-  color: #e2e8f0;
+  background: #1e1e1e;
+  color: #d4d4d4;
   padding: 20px;
   font-family: "Fira Code", "Cascadia Code", "Consolas", monospace;
   font-size: 13px;
   overflow-x: auto;
   line-height: 1.7;
   margin: 0;
+  border: none;
+  border-radius: 0;
 }
 
 .answer-code code {
   background: none;
   color: inherit;
   white-space: pre;
+}
+
+/* Syntax Highlighting Tokens */
+.token-keyword { color: #c586c0; }
+.token-decorator { color: #ce9178; }
+.token-string { color: #6a9955; }
+.token-property { color: #9cdcfe; }
+.token-classname { color: #fd971f; }
+.token-type { color: #4ec9b0; }
+.token-number { color: #b5cea8; }
+.token-comment { color: #6a9955; font-style: italic; }
+.token-plain { color: #d4d4d4; }
+
+/* Answer Quote */
+.answer-quote {
+  margin: 20px 0;
+  padding: 16px 20px;
+  border-left: 4px solid #3b82f6;
+  background: #f8fafc;
+  border-radius: 0 8px 8px 0;
+}
+
+.answer-quote p {
+  margin: 0;
+  font-style: italic;
+  color: #475569;
+  line-height: 1.7;
+}
+
+.answer-quote cite {
+  display: block;
+  margin-top: 10px;
+  font-size: 13px;
+  color: #64748b;
+  font-style: normal;
+}
+
+/* Answer Note */
+.answer-note {
+  display: flex;
+  gap: 12px;
+  padding: 16px;
+  border-radius: 10px;
+  margin: 16px 0;
+  border-left: 4px solid;
+}
+
+.answer-note-icon {
+  font-size: 18px;
+}
+
+.answer-note-content {
+  flex: 1;
+  line-height: 1.6;
 }
 
 /* Inline Code */
@@ -555,6 +613,118 @@ h5.answer-heading { font-size: 14px; }
   margin-bottom: 8px;
   line-height: 1.7;
   padding-left: 4px;
+}
+
+/* Answer Image */
+.answer-figure {
+  margin: 20px 0;
+  text-align: center;
+}
+
+.answer-figure.image-left { text-align: left; }
+.answer-figure.image-right { text-align: right; }
+
+.answer-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.answer-figcaption {
+  margin-top: 8px;
+  font-size: 13px;
+  color: #64748b;
+  font-style: italic;
+}
+
+/* Empty Answer */
+.empty-answer {
+  text-align: center;
+  padding: 40px;
+  color: #94a3b8;
+  font-style: italic;
+}
+
+/* Answer Renderer */
+.answer-renderer {
+  line-height: 1.8;
+  color: #334155;
+}
+
+/* List Content */
+.list-content {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* Nested List */
+.answer-sub-list {
+  margin-top: 8px;
+  margin-bottom: 0;
+  padding-left: 20px;
+  border-left: 2px solid #e2e8f0;
+  list-style-type: disc;
+}
+
+.answer-sub-list li {
+  margin-bottom: 6px;
+  font-size: 0.95em;
+}
+
+/* List Code Block */
+.answer-list-code-block {
+  margin-top: 12px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #334155;
+  background: #252526;
+}
+
+.answer-list-code-block .code-lang {
+  background: #2d2d2d;
+  color: #94a3b8;
+  padding: 6px 16px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid #404040;
+  font-family: "Fira Code", "Consolas", monospace;
+}
+
+.answer-list-code-block pre {
+  background: #1e1e1e;
+  color: #d4d4d4;
+  padding: 20px;
+  margin: 0;
+  font-family: "Fira Code", "Consolas", monospace;
+  font-size: 13px;
+  overflow-x: auto;
+  line-height: 1.7;
+  border: none;
+  border-radius: 0;
+}
+
+.answer-list-code-block code {
+  white-space: pre;
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
+  font-size: inherit;
+}
+
+/* Image Placeholder */
+.answer-image-placeholder {
+  padding: 40px;
+  background: #f1f5f9;
+  border: 2px dashed #cbd5e1;
+  border-radius: 8px;
+  text-align: center;
+  color: #94a3b8;
+  margin: 16px 0;
 }
 
 /* Code blocks inside lists - high specificity override */
