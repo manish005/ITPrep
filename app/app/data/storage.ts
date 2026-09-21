@@ -19,7 +19,7 @@ const KEYS = {
 };
 
 const CURRENT_VERSION = "1.0.7";
-const SEED_VERSION = "2"; // Bump this to re-seed questions
+const SEED_VERSION = "3"; // Bump this to re-seed questions
 
 // ============================================
 // CATEGORIES
