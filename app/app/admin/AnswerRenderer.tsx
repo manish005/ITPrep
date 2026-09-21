@@ -28,6 +28,12 @@ const TOKEN_COLORS: Record<string, string> = {
   type: "#4ec9b0",
   number: "#b5cea8",
   comment: "#6a9955",
+  tag: "#569cd6",
+  attr: "#9cdcfe",
+  value: "#ce9178",
+  selector: "#d7ba7d",
+  function: "#dcdcaa",
+  operator: "#d4d4d4",
   plain: "#d4d4d4",
 };
 
@@ -109,12 +115,30 @@ function ListRenderer({ block }: { block: ListBlock }) {
     lineHeight: 1.7,
   };
 
+  const renderHighlightedCode = (code: string, language?: string) => {
+    const tokens = language ? highlightCode(code, language) : [{ text: code, className: "plain" as const }];
+    return (
+      <code>
+        {tokens.map((token, i) => (
+          <span key={i} style={{ color: TOKEN_COLORS[token.className] || "#d4d4d4", fontStyle: token.className === "comment" ? "italic" : undefined }}>
+            {token.text}
+          </span>
+        ))}
+      </code>
+    );
+  };
+
   const renderItem = (item: any, index?: number) => (
     <li key={item.id} style={liStyle}>
       <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-        {item.title && <strong style={{ color: "#0f172a" }}>{item.title}</strong>}
-        {item.title && item.description && ": "}
-        {item.description && <span>{item.description}</span>}
+        {item.title && (
+          <span>
+            <strong style={{ color: "#0f172a" }}>{item.title}</strong>
+            {item.title.endsWith(":") ? " " : ": "}
+            {item.description && <span>{item.description}</span>}
+          </span>
+        )}
+        {!item.title && item.description && <span>{item.description}</span>}
         {item.code && (
           <div style={{ marginTop: 12, borderRadius: 12, overflow: "hidden", border: "1px solid #334155", background: "#252526" }}>
             {item.codeLanguage && (
@@ -123,7 +147,7 @@ function ListRenderer({ block }: { block: ListBlock }) {
               </div>
             )}
             <pre style={{ background: "#1e1e1e", color: "#d4d4d4", padding: 20, margin: 0, fontFamily: '"Fira Code", "Consolas", monospace', fontSize: 13, overflowX: "auto", lineHeight: 1.7 }}>
-              <code style={{ whiteSpace: "pre" }}>{item.code}</code>
+              {renderHighlightedCode(item.code, item.codeLanguage)}
             </pre>
           </div>
         )}
@@ -133,9 +157,14 @@ function ListRenderer({ block }: { block: ListBlock }) {
           {item.subItems.map((sub: any, subIndex: number) => (
             <li key={sub.id} style={{ marginBottom: 6, fontSize: "0.95em" }}>
               <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-                {sub.title && <strong style={{ color: "#0f172a" }}>{sub.title}</strong>}
-                {sub.title && sub.description && ": "}
-                {sub.description && <span>{sub.description}</span>}
+                {sub.title && (
+                  <span>
+                    <strong style={{ color: "#0f172a" }}>{sub.title}</strong>
+                    {sub.title.endsWith(":") ? " " : ": "}
+                    {sub.description && <span>{sub.description}</span>}
+                  </span>
+                )}
+                {!sub.title && sub.description && <span>{sub.description}</span>}
                 {sub.code && (
                   <div style={{ marginTop: 8, borderRadius: 10, overflow: "hidden", border: "1px solid #334155", background: "#252526" }}>
                     {sub.codeLanguage && (
@@ -144,7 +173,7 @@ function ListRenderer({ block }: { block: ListBlock }) {
                       </div>
                     )}
                     <pre style={{ background: "#1e1e1e", color: "#d4d4d4", padding: 16, margin: 0, fontFamily: '"Fira Code", "Consolas", monospace', fontSize: 12, overflowX: "auto", lineHeight: 1.6 }}>
-                      <code style={{ whiteSpace: "pre" }}>{sub.code}</code>
+                      {renderHighlightedCode(sub.code, sub.codeLanguage)}
                     </pre>
                   </div>
                 )}
@@ -219,9 +248,7 @@ function ImageRenderer({ block }: { block: ImageBlock }) {
 }
 
 function CodeRenderer({ block }: { block: CodeBlock }) {
-  const tokens = block.language === "typescript" || block.language === "ts" || block.language === "angular"
-    ? highlightCode(block.code || "", block.language)
-    : [{ text: block.code || "No code", className: "plain" }];
+  const tokens = highlightCode(block.code || "", block.language || "text");
 
   return (
     <div style={{ margin: "16px 0", borderRadius: 12, overflow: "hidden", border: "1px solid #334155", background: "#252526" }}>

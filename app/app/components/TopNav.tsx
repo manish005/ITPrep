@@ -1,17 +1,18 @@
 "use client";
-import { useState } from "react";
+
 import { Bell, UserCircle, Menu } from "lucide-react";
 
 interface TopNavProps {
   searchQuery: string;
   onSearchChange: (query: string) => void;
+  onMenuClick?: () => void;
 }
 
-export function TopNav({ searchQuery, onSearchChange }: TopNavProps) {
+export function TopNav({ searchQuery, onSearchChange, onMenuClick }: TopNavProps) {
   return (
     <header className="topnav">
       <div className="topnav-left">
-        <button className="topnav-menu-btn">
+        <button className="topnav-menu-btn" onClick={onMenuClick}>
           <Menu size={20} />
         </button>
         <div className="topnav-search">

@@ -1,12 +1,13 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { AdminProvider, useAdmin } from "../../AdminContext";
 import AdminLayout from "../../AdminLayout";
 import AnswerBuilder from "../../AnswerBuilder";
 import { AnswerBlock } from "../../types";
+import Toast from "../../../components/Toast";
 
 function QuestionEditor() {
   const params = useParams();
@@ -27,6 +28,8 @@ function QuestionEditor() {
   });
 
   const [blocks, setBlocks] = useState<AnswerBlock[]>(existing?.answer?.blocks || []);
+  const [toastVisible, setToastVisible] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
 
   useEffect(() => {
     setMounted(true);
@@ -51,7 +54,14 @@ function QuestionEditor() {
       <AdminLayout>
         <div className="loading-state">
           <p>Loading...</p>
-          <style jsx>{`
+      <Toast
+        message={toastMessage}
+        type="success"
+        isVisible={toastVisible}
+        onClose={() => setToastVisible(false)}
+      />
+
+      <style jsx>{`
             .loading-state { text-align: center; padding: 60px; color: #64748b; }
           `}</style>
         </div>
@@ -83,10 +93,14 @@ function QuestionEditor() {
     if (isNew) {
       const id = addQuestion(qData);
       updateAnswer(id, blocks, saveStatus);
-      setTimeout(() => router.push(`/admin/questions/${id}/edit`), 200);
+      setToastMessage("Question added successfully!");
+      setToastVisible(true);
+      setTimeout(() => router.push(`/admin/questions/${id}/edit`), 1500);
     } else if (existing) {
       updateAnswer(existing.id, blocks, saveStatus);
-      setTimeout(() => router.push("/admin/questions"), 200);
+      setToastMessage("Question saved successfully!");
+      setToastVisible(true);
+      setTimeout(() => router.push("/admin/questions"), 1500);
     }
   };
 
@@ -150,6 +164,7 @@ function QuestionEditor() {
         <AnswerBuilder
           questionId={existing?.id || "new"}
           questionTitle={question.title || "New Question"}
+          categoryId={question.categoryId}
           initialBlocks={blocks}
           onSave={handleSave}
         />

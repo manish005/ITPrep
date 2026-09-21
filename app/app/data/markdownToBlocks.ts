@@ -1,4 +1,5 @@
 import { AnswerBlock } from "../admin/types";
+import { formatCodeBlock } from "./codeFormatter";
 
 let blockCounter = 0;
 function genId(prefix: string = "b"): string {
@@ -39,11 +40,13 @@ export function markdownToBlocks(markdown: string): AnswerBlock[] {
         i++;
       }
       i++; // skip closing ```
+      const rawCode = codeLines.join("\n");
+      const formattedCode = formatCodeBlock(rawCode, lang);
       blocks.push({
         id: genId("b"),
         type: "code",
         language: lang,
-        code: codeLines.join("\n"),
+        code: formattedCode,
       });
       continue;
     }
@@ -77,16 +80,47 @@ export function markdownToBlocks(markdown: string): AnswerBlock[] {
     // Numbered list
     const numMatch = trimmed.match(/^(\d+)\.\s+(.+)/);
     if (numMatch) {
-      const items: { id: string; title: string; description: string }[] = [];
+      const items: { id: string; title: string; description: string; code?: string; codeLanguage?: string }[] = [];
       while (i < lines.length) {
-        const m = lines[i].trim().match(/^(\d+)\.\s+(.+)/);
+        const line = lines[i].trim();
+        const m = line.match(/^(\d+)\.\s+(.+)/);
         if (!m) break;
+
+        const rawContent = m[2];
+        let title = "";
+        let code: string | undefined;
+        let codeLanguage: string | undefined;
+
+        const codeInlineMatch = rawContent.match(/^(.*?)\s*```(\w*)\s*([\s\S]*)$/);
+        if (codeInlineMatch) {
+          title = cleanInlineMarkdown(codeInlineMatch[1]);
+          codeLanguage = codeInlineMatch[2] || "text";
+          code = formatCodeBlock(codeInlineMatch[3].replace(/```$/, "").trim(), codeLanguage);
+          i++;
+        } else {
+          title = cleanInlineMarkdown(rawContent);
+          i++;
+          if (i < lines.length && lines[i].trim().startsWith("```")) {
+            const lang = lines[i].trim().slice(3).trim() || "text";
+            const codeLines: string[] = [];
+            i++;
+            while (i < lines.length && !lines[i].trim().startsWith("```")) {
+              codeLines.push(lines[i]);
+              i++;
+            }
+            i++;
+            codeLanguage = lang;
+            code = formatCodeBlock(codeLines.join("\n").trim(), codeLanguage);
+          }
+        }
+
         items.push({
           id: genId("i"),
-          title: cleanInlineMarkdown(m[2]),
+          title,
           description: "",
+          code,
+          codeLanguage,
         });
-        i++;
       }
       blocks.push({
         id: genId("b"),
@@ -99,16 +133,47 @@ export function markdownToBlocks(markdown: string): AnswerBlock[] {
     // Bullet list (- or * or •)
     const bulletMatch = trimmed.match(/^[-*•]\s+(.+)/);
     if (bulletMatch) {
-      const items: { id: string; title: string; description: string }[] = [];
+      const items: { id: string; title: string; description: string; code?: string; codeLanguage?: string }[] = [];
       while (i < lines.length) {
-        const m = lines[i].trim().match(/^[-*•]\s+(.+)/);
+        const line = lines[i].trim();
+        const m = line.match(/^[-*•]\s+(.+)/);
         if (!m) break;
+
+        const rawContent = m[1];
+        let title = "";
+        let code: string | undefined;
+        let codeLanguage: string | undefined;
+
+        const codeInlineMatch = rawContent.match(/^(.*?)\s*```(\w*)\s*([\s\S]*)$/);
+        if (codeInlineMatch) {
+          title = cleanInlineMarkdown(codeInlineMatch[1]);
+          codeLanguage = codeInlineMatch[2] || "text";
+          code = formatCodeBlock(codeInlineMatch[3].replace(/```$/, "").trim(), codeLanguage);
+          i++;
+        } else {
+          title = cleanInlineMarkdown(rawContent);
+          i++;
+          if (i < lines.length && lines[i].trim().startsWith("```")) {
+            const lang = lines[i].trim().slice(3).trim() || "text";
+            const codeLines: string[] = [];
+            i++;
+            while (i < lines.length && !lines[i].trim().startsWith("```")) {
+              codeLines.push(lines[i]);
+              i++;
+            }
+            i++;
+            codeLanguage = lang;
+            code = formatCodeBlock(codeLines.join("\n").trim(), codeLanguage);
+          }
+        }
+
         items.push({
           id: genId("i"),
-          title: cleanInlineMarkdown(m[1]),
+          title,
           description: "",
+          code,
+          codeLanguage,
         });
-        i++;
       }
       blocks.push({
         id: genId("b"),
@@ -198,63 +263,70 @@ export function markdownToBlocks(markdown: string): AnswerBlock[] {
   return blocks;
 }
 
-/**
- * Normalize markdown - handle single-line tables and other edge cases
- */
 function normalizeMarkdown(markdown: string): string {
   let result = markdown;
 
-  // Handle tables that come after text with ": -" pattern
-  // Like "Here are differences:- | Col1 | Col2 | |---| | Row1 | Row2 |"
-  result = result.replace(/(:\s*-\s*)(\|)/g, (match, prefix, pipe) => {
+  result = splitInlineCodeBlocks(result);
+
+  result = result.replace(/(:\s*-\s*)(\|)/g, (_m, prefix: string, pipe: string) => {
     return prefix + '\n' + pipe;
   });
 
-  // Handle single-line tables with separator pattern like "|---- | --------- |"
-  // Split them into proper multi-line format
-  // Pattern: "| H1 | H2 | |---- | --------- | | R1C1 | R1C2 | | R2C1 | R2C2 |"
-  
-  // First, check if we have a single-line table
-  const pipeCount = (result.match(/\|/g) || []).length;
-  const hasSeparator = /\|\s*-+\s*\|/.test(result);
-  
-  if (hasSeparator && pipeCount > 6) {
-    // This looks like a single-line table, try to parse it
-    const tableMatch = result.match(/(\|[^|\n]+\|)\s*(\|\s*-+\s*\|[^|\n]*\|)\s*(\|(?:[^|\n]+\|)+)/);
-    if (tableMatch) {
-      const [fullMatch, headerPart, separatorPart, rowsPart] = tableMatch;
-      
-      // Parse header cells
-      const headerCells = headerPart.split('|').filter((c: string) => c.trim()).map((c: string) => c.trim());
-      
-      // Parse separator
-      const separatorCells = separatorPart.split('|').filter((c: string) => c.trim());
-      
-      // Parse rows - they might be concatenated
-      const allCells = rowsPart.split('|').filter((c: string) => c.trim()).map((c: string) => c.trim());
-      
-      // Group cells into rows based on header count
-      const numRows = Math.floor(allCells.length / headerCells.length);
-      const rows: string[][] = [];
-      for (let r = 0; r < numRows; r++) {
-        rows.push(allCells.slice(r * headerCells.length, (r + 1) * headerCells.length));
-      }
-      
-      // Rebuild as multi-line table
-      const headerLine = '| ' + headerCells.join(' | ') + ' |';
-      const separatorLine = '| ' + separatorCells.join(' | ') + ' |';
-      const rowLines = rows.map((row: string[]) => '| ' + row.join(' | ') + ' |');
-      
-      // Replace the original table with formatted version
-      const beforeTable = result.substring(0, result.indexOf('|'));
-      const afterTableEnd = result.lastIndexOf('|') + 1;
-      const afterTable = result.substring(afterTableEnd);
-      
-      result = beforeTable + headerLine + '\n' + separatorLine + '\n' + rowLines.join('\n') + afterTable;
-    }
-  }
+  result = convertSingleLineTables(result);
 
   return result;
+}
+
+function splitInlineCodeBlocks(text: string): string {
+  return text.replace(/(```\w*)\s*/g, (_match, opening: string) => {
+    return opening + '\n';
+  }).replace(/\s*(```)/g, (_match, closing: string) => {
+    return '\n' + closing;
+  });
+}
+
+function convertSingleLineTables(text: string): string {
+  const lines = text.split('\n');
+  const out: string[] = [];
+
+  const sepPattern = /\|(\s*-+\s*\|)+\s*/;
+
+  for (const line of lines) {
+    const sepResult = sepPattern.exec(line);
+    if (!sepResult) {
+      out.push(line);
+      continue;
+    }
+
+    const sepStart = sepResult.index!;
+    const beforeSep = line.substring(0, sepStart).trim();
+    const afterSep = line.substring(sepStart + sepResult[0].length);
+
+    const headerCells = beforeSep.split('|').filter((c: string) => c.trim() !== '').map((c: string) => c.trim());
+    const numCols = headerCells.length;
+
+    const rowCells = afterSep.split('|').filter((c: string) => c.trim() !== '').map((c: string) => c.trim());
+
+    if (numCols < 2 || rowCells.length === 0) {
+      out.push(line);
+      continue;
+    }
+
+    const rows: string[][] = [];
+    for (let k = 0; k < rowCells.length; k += numCols) {
+      rows.push(rowCells.slice(k, k + numCols));
+    }
+
+    const rebuilt = [
+      '| ' + headerCells.join(' | ') + ' |',
+      '| ' + headerCells.map(() => '---').join(' | ') + ' |',
+      ...rows.map((r: string[]) => '| ' + r.join(' | ') + ' |')
+    ].join('\n');
+
+    out.push(rebuilt);
+  }
+
+  return out.join('\n');
 }
 
 /**
@@ -272,7 +344,7 @@ function parseTableLines(lines: string[]): AnswerBlock | null {
     
     // Skip separator line (|---|---| or |---- | --------- |)
     if (/^\|[\s\-:|]+\|$/.test(line) || /^\|\s*(-+\s*\|)+\s*$/.test(line) || /^\|\s*-+\s*\|/.test(line)) {
-      headerEnabled = rows.length > 0;
+      headerEnabled = columns.length > 0;
       continue;
     }
 

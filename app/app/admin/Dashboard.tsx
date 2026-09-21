@@ -1,10 +1,16 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useAdmin } from "./AdminContext";
 
 export default function Dashboard() {
   const { categories, questions } = useAdmin();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const stats = {
     totalCategories: categories.length,
@@ -17,6 +23,24 @@ export default function Dashboard() {
   const recentQuestions = [...questions].sort((a, b) => b.updatedAt.localeCompare(a.updatedAt)).slice(0, 5);
 
   const getCategoryName = (catId: string) => categories.find((c) => c.id === catId)?.name || "Unknown";
+
+  if (!mounted) {
+    return (
+      <div className="dashboard">
+        <div className="stats-grid">
+          {[1, 2, 3, 4, 5].map((i) => (
+            <div key={i} className="stat-card" style={{ borderLeft: "4px solid #e2e8f0" }}>
+              <div className="stat-icon">⏳</div>
+              <div className="stat-info">
+                <span className="stat-value">-</span>
+                <span className="stat-label">Loading...</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="dashboard">

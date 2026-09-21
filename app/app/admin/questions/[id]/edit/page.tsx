@@ -7,6 +7,7 @@ import { AdminProvider, useAdmin } from "../../../AdminContext";
 import AdminLayout from "../../../AdminLayout";
 import AnswerBuilder from "../../../AnswerBuilder";
 import { AnswerBlock } from "../../../types";
+import Toast from "../../../../components/Toast";
 
 function QuestionEditor() {
   const params = useParams();
@@ -28,6 +29,8 @@ function QuestionEditor() {
 
   const [blocks, setBlocks] = useState<AnswerBlock[]>([]);
   const [saving, setSaving] = useState(false);
+  const [toastVisible, setToastVisible] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
 
   useEffect(() => {
     setMounted(true);
@@ -52,7 +55,14 @@ function QuestionEditor() {
       <AdminLayout>
         <div className="loading-state">
           <p>Loading...</p>
-          <style jsx>{`
+      <Toast
+        message={toastMessage}
+        type="success"
+        isVisible={toastVisible}
+        onClose={() => setToastVisible(false)}
+      />
+
+      <style jsx>{`
             .loading-state { text-align: center; padding: 60px; color: #64748b; }
           `}</style>
         </div>
@@ -92,9 +102,12 @@ function QuestionEditor() {
 
     updateAnswer(questionId, blocks, saveStatus);
 
+    setToastMessage("Question saved successfully!");
+    setToastVisible(true);
+
     setTimeout(() => {
       router.push("/admin/questions");
-    }, 200);
+    }, 1500);
   };
 
   return (
@@ -166,6 +179,7 @@ function QuestionEditor() {
         <AnswerBuilder
           questionId={questionId}
           questionTitle={form.title}
+          categoryId={form.categoryId}
           initialBlocks={blocks}
           onSave={handleSaveBlocks}
         />

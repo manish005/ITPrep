@@ -9,6 +9,15 @@ import { TopNav } from "./components/TopNav";
 import { getQuestions, getCategories } from "./data/storage";
 import AnswerRenderer from "./admin/AnswerRenderer";
 
+function getChildCategoryIds(categories: any[], parentId: string): string[] {
+  const children = categories.filter((c) => c.parentId === parentId);
+  let ids: string[] = [parentId];
+  for (const child of children) {
+    ids = ids.concat(getChildCategoryIds(categories, child.id));
+  }
+  return ids;
+}
+
 export default function Home() {
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("all");
@@ -16,28 +25,43 @@ export default function Home() {
   const [modalOpen, setModalOpen] = useState(false);
   const [questionsData, setQuestionsData] = useState<any[]>([]);
   const [categoriesData, setCategoriesData] = useState<any[]>([]);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  // Load data from localStorage on mount
   useEffect(() => {
     setQuestionsData(getQuestions());
     setCategoriesData(getCategories());
   }, []);
 
+  const handleFilterChange = (item: string) => {
+    setFilter(item);
+    setMobileMenuOpen(false);
+  };
+
   const filtered = useMemo(() => {
     let result = questionsData
       .filter((q) => q.status === "published")
       .sort((a, b) => (a.order || 0) - (b.order || 0));
+
     if (search) {
       const q = search.toLowerCase();
       result = result.filter((item) => item.title.toLowerCase().includes(q));
     }
+
     if (filter !== "all") {
-      result = result.filter((item) => item.categoryId === filter);
+      const filterIds = getChildCategoryIds(categoriesData, filter);
+      result = result.filter((item) => filterIds.includes(item.categoryId));
     }
+
     return result;
-  }, [search, filter, questionsData]);
+  }, [search, filter, questionsData, categoriesData]);
 
   const getCategoryName = (catId: string) => categoriesData.find((c) => c.id === catId)?.name || "";
+
+  const getPageTitle = () => {
+    if (filter === "all") return "All Questions";
+    const cat = categoriesData.find((c) => c.id === filter);
+    return cat ? `${cat.name} Prep` : "Questions";
+  };
 
   const handleCheckAnswer = (item: any) => {
     setModalQuestion(item);
@@ -46,71 +70,30 @@ export default function Home() {
 
   return (
     <div className="app-layout">
-      <Sidebar activeItem="angular" onItemClick={() => {}} />
+      <Sidebar activeItem={filter} onItemClick={handleFilterChange} isOpen={mobileMenuOpen} onClose={() => setMobileMenuOpen(false)} />
+
       <div className="main-area">
-        <TopNav searchQuery={search} onSearchChange={setSearch} />
+        <TopNav searchQuery={search} onSearchChange={setSearch} onMenuClick={() => setMobileMenuOpen(true)} />
+
         <main className="content-area">
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-            className="text-center pt-12 pb-6"
-          >
-            <motion.h1
-              className="text-4xl md:text-5xl font-bold gradient-text mb-3"
-              initial={{ scale: 0.9 }}
-              animate={{ scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-            >
-              ⚡ Angular Interview Prep
-            </motion.h1>
-            <motion.p
-              className="text-lg text-gray-600 max-w-2xl mx-auto px-4"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-            >
-              Master {filtered.length} core questions with Framer Motion powered cards.
-              Click "Check Answer" to reveal the answer in a modal.
-            </motion.p>
-          </motion.div>
-
-          <motion.div
-            className="max-w-6xl mx-auto px-4 pb-8"
+            className="max-w-6xl mx-auto pb-8"
+            style={{ marginTop: 100 }}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
           >
-            <div className="flex flex-col md:flex-row gap-4 mb-6">
-              <div className="relative flex-1">
-                <input
-                  type="text"
-                  placeholder="Search questions..."
-                  value={search}
-                  onChange={(e) => setSearch(e.target.value)}
-                  className="search-input"
-                />
-              </div>
-              <div className="flex gap-2 flex-wrap justify-center">
-                <button
-                  onClick={() => setFilter("all")}
-                  className={`filter-btn ${filter === "all" ? "active" : ""}`}
-                >
-                  All
-                </button>
-                {categoriesData.map((cat) => (
-                  <button
-                    key={cat.id}
-                    onClick={() => setFilter(cat.id)}
-                    className={`filter-btn ${filter === cat.id ? "active" : ""}`}
-                  >
-                    {cat.icon} {cat.name}
-                  </button>
-                ))}
-              </div>
-            </div>
+            <motion.h1
+              key={filter}
+              initial={{ opacity: 0, x: -30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.4 }}
+              className="text-3xl md:text-4xl font-bold gradient-text mb-6"
+            >
+              {getPageTitle()}
+            </motion.h1>
 
-            <AnimatePresence>
+          <AnimatePresence>
               <motion.div
                 className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"
                 variants={{
@@ -194,7 +177,6 @@ export default function Home() {
           </Modal>
         </main>
       </div>
-
     </div>
   );
 }

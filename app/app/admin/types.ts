@@ -174,6 +174,21 @@ export interface Media {
 }
 
 // ============================================
+// SIDEBAR MENU MODEL
+// ============================================
+
+export interface SidebarMenuItem {
+  id: string;
+  label: string;
+  icon: string;
+  href: string;
+  order: number;
+  visible: boolean;
+  section?: string;
+  children?: SidebarMenuItem[];
+}
+
+// ============================================
 // ADMIN STATE
 // ============================================
 

@@ -3,6 +3,7 @@
 import { useState, useCallback, useRef } from "react";
 import { AnswerBlock, TableBlock, ListBlock, ImageBlock, CodeBlock, HeadingBlock, ParagraphBlock, QuoteBlock, NoteBlock } from "./types";
 import AnswerRenderer from "./AnswerRenderer";
+import { useAdmin } from "./AdminContext";
 
 let idCounter = 0;
 function genUniqueId(): string {
@@ -131,6 +132,8 @@ interface BlockComponentProps {
   onMoveUp: () => void;
   onMoveDown: () => void;
   onDuplicate: () => void;
+  categoryId?: string;
+  categoryName?: string;
 }
 
 function BlockComponent({
@@ -142,6 +145,8 @@ function BlockComponent({
   onMoveUp,
   onMoveDown,
   onDuplicate,
+  categoryId,
+  categoryName,
 }: BlockComponentProps) {
   const [showMenu, setShowMenu] = useState(false);
 
@@ -203,7 +208,7 @@ function BlockComponent({
           <ListEditor block={block as ListBlock} onUpdate={handleUpdate} />
         )}
         {block.type === "code" && <CodeEditor block={block as CodeBlock} onUpdate={handleUpdate} />}
-        {block.type === "image" && <ImageEditor block={block as ImageBlock} onUpdate={handleUpdate} />}
+        {block.type === "image" && <ImageEditor block={block as ImageBlock} onUpdate={handleUpdate} categoryId={categoryId} categoryName={categoryName} />}
         {block.type === "quote" && (
           <div className="quote-editor">
             <textarea
@@ -1185,13 +1190,16 @@ function CodeEditor({ block, onUpdate }: CodeEditorProps) {
 interface ImageEditorProps {
   block: ImageBlock;
   onUpdate: (updates: Partial<ImageBlock>) => void;
+  categoryId?: string;
+  categoryName?: string;
 }
 
-function ImageEditor({ block, onUpdate }: ImageEditorProps) {
+function ImageEditor({ block, onUpdate, categoryId, categoryName }: ImageEditorProps) {
   const [isDragging, setIsDragging] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleFileSelect = (file: File) => {
+  const handleFileSelect = async (file: File) => {
     if (!file.type.startsWith("image/")) {
       alert("Please select an image file");
       return;
@@ -1202,12 +1210,38 @@ function ImageEditor({ block, onUpdate }: ImageEditorProps) {
       return;
     }
 
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      const base64 = e.target?.result as string;
-      onUpdate({ imageUrl: base64 });
-    };
-    reader.readAsDataURL(file);
+    if (categoryName) {
+      setIsUploading(true);
+      try {
+        const formData = new FormData();
+        formData.append("file", file);
+        formData.append("categoryName", categoryName);
+
+        const response = await fetch("/api/upload", {
+          method: "POST",
+          body: formData,
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          onUpdate({ imageUrl: data.url });
+        } else {
+          throw new Error("Upload failed");
+        }
+      } catch (error) {
+        console.error("Upload error:", error);
+        alert("Failed to upload image. Please try again.");
+      } finally {
+        setIsUploading(false);
+      }
+    } else {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const base64 = e.target?.result as string;
+        onUpdate({ imageUrl: base64 });
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   const handleFileInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -1565,6 +1599,7 @@ function createBlock(type: AnswerBlock["type"]): AnswerBlock {
 interface AnswerBuilderProps {
   questionId: string;
   questionTitle: string;
+  categoryId?: string;
   initialBlocks?: AnswerBlock[];
   onSave?: (blocks: AnswerBlock[]) => void;
 }
@@ -1572,6 +1607,7 @@ interface AnswerBuilderProps {
 export default function AnswerBuilder({
   questionId,
   questionTitle,
+  categoryId,
   initialBlocks = [],
   onSave,
 }: AnswerBuilderProps) {
@@ -1581,6 +1617,9 @@ export default function AnswerBuilder({
   const [undoStack, setUndoStack] = useState<AnswerBlock[][]>([]);
   const [redoStack, setRedoStack] = useState<AnswerBlock[][]>([]);
   const [saveStatus, setSaveStatus] = useState<"saved" | "saving" | "unsaved">("saved");
+
+  const { categories } = useAdmin();
+  const catName = categories?.find((c) => c.id === categoryId)?.name || "";
 
   const selectedBlock = blocks.find((b) => b.id === selectedBlockId);
 
@@ -1710,6 +1749,8 @@ export default function AnswerBuilder({
                 onMoveUp={() => moveBlock(index, "up")}
                 onMoveDown={() => moveBlock(index, "down")}
                 onDuplicate={() => duplicateBlock(index)}
+                categoryId={categoryId}
+                categoryName={catName}
               />
             ))
           )}

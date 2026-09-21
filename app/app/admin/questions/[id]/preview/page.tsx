@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import { AdminProvider, useAdmin } from "../../../AdminContext";
@@ -9,8 +10,21 @@ import AnswerRenderer from "../../../AnswerRenderer";
 function QuestionPreview() {
   const params = useParams();
   const { getQuestion, getCategory } = useAdmin();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const question = getQuestion(String(params.id));
+
+  if (!mounted) {
+    return (
+      <div style={{ padding: 40, textAlign: "center", color: "#94a3b8" }}>
+        Loading preview...
+      </div>
+    );
+  }
 
   if (!question) {
     return (

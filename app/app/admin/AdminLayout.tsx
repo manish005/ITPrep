@@ -11,9 +11,9 @@ interface AdminLayoutProps {
 
 export default function AdminLayout({ children }: AdminLayoutProps) {
   const pathname = usePathname();
-  const { categories } = useAdmin();
+  const { categories, sidebarMenu } = useAdmin();
   const [sidebarOpen, setSidebarOpen] = useState(true);
-  const [expandedSections, setExpandedSections] = useState<string[]>(["Categories", "Questions"]);
+  const [expandedSections, setExpandedSections] = useState<string[]>([]);
 
   const toggleSection = (label: string) => {
     setExpandedSections((prev) =>
@@ -21,11 +21,61 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
     );
   };
 
-  const isActive = (href: string) => pathname === href || pathname.startsWith(href + "/");
+  const mainItems = sidebarMenu.filter((item) => item.section === "main" && item.visible).sort((a, b) => a.order - b.order);
+  const toolItems = sidebarMenu.filter((item) => item.section === "tools" && item.visible).sort((a, b) => a.order - b.order);
+  const footerItems = sidebarMenu.filter((item) => item.section === "footer" && item.visible).sort((a, b) => a.order - b.order);
+
+  const renderNavItem = (item: any) => {
+    const hasChildren = item.children && item.children.length > 0;
+    const isExpanded = expandedSections.includes(item.label);
+
+    if (hasChildren) {
+      return (
+        <div key={item.id} className="nav-section">
+          <button
+            className={`nav-item parent ${isExpanded ? "expanded" : ""}`}
+            onClick={() => toggleSection(item.label)}
+          >
+            <span className="nav-icon">{item.icon}</span>
+            {sidebarOpen && (
+              <span>{item.label}</span>
+            )}
+          </button>
+          {sidebarOpen && isExpanded && (
+            <div className="nav-children">
+              {item.children
+                .filter((c: any) => c.visible !== false)
+                .sort((a: any, b: any) => a.order - b.order)
+                .map((child: any) => (
+                  <Link
+                    key={child.id}
+                    href={child.href}
+                    className={`nav-item child ${pathname === child.href ? "active" : ""}`}
+                  >
+                    {child.icon && <span>{child.icon} </span>}
+                    {child.label}
+                  </Link>
+                ))}
+            </div>
+          )}
+        </div>
+      );
+    }
+
+    return (
+      <Link
+        key={item.id}
+        href={item.href}
+        className={`nav-item ${pathname === item.href ? "active" : ""}`}
+      >
+        <span className="nav-icon">{item.icon}</span>
+        {sidebarOpen && <span>{item.label}</span>}
+      </Link>
+    );
+  };
 
   return (
     <div className="admin-layout">
-      {/* Sidebar */}
       <aside className={`sidebar ${sidebarOpen ? "open" : "closed"}`}>
         <div className="sidebar-header">
           <Link href="/admin" className="logo">
@@ -38,89 +88,18 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
         </div>
 
         <nav className="sidebar-nav">
-          {/* Dashboard */}
-          <Link href="/admin" className={`nav-item ${pathname === "/admin" ? "active" : ""}`}>
-            <span className="nav-icon">📊</span>
-            {sidebarOpen && <span>Dashboard</span>}
-          </Link>
-
-          {/* Categories Section */}
-          <div className="nav-section">
-            <button
-              className={`nav-item parent ${expandedSections.includes("Categories") ? "expanded" : ""}`}
-              onClick={() => toggleSection("Categories")}
-            >
-              <span className="nav-icon">📁</span>
-              {sidebarOpen && (
-                <>
-                  <span>Categories</span>
-                  <span className="nav-arrow">{expandedSections.includes("Categories") ? "▼" : "▶"}</span>
-                </>
-              )}
-            </button>
-            {sidebarOpen && expandedSections.includes("Categories") && (
-              <div className="nav-children">
-                <Link href="/admin/categories" className={`nav-item child ${pathname === "/admin/categories" ? "active" : ""}`}>
-                  All Categories
-                </Link>
-                <Link href="/admin/categories/new" className={`nav-item child ${pathname === "/admin/categories/new" ? "active" : ""}`}>
-                  + Add Category
-                </Link>
-                {categories.slice(0, 5).map((cat) => (
-                  <Link
-                    key={cat.id}
-                    href={`/admin/categories?highlight=${cat.id}`}
-                    className="nav-item child"
-                  >
-                    {cat.icon} {cat.name}
-                  </Link>
-                ))}
-              </div>
-            )}
-          </div>
-
-          {/* Questions Section */}
-          <div className="nav-section">
-            <button
-              className={`nav-item parent ${expandedSections.includes("Questions") ? "expanded" : ""}`}
-              onClick={() => toggleSection("Questions")}
-            >
-              <span className="nav-icon">❓</span>
-              {sidebarOpen && (
-                <>
-                  <span>Questions</span>
-                  <span className="nav-arrow">{expandedSections.includes("Questions") ? "▼" : "▶"}</span>
-                </>
-              )}
-            </button>
-            {sidebarOpen && expandedSections.includes("Questions") && (
-              <div className="nav-children">
-                <Link href="/admin/questions" className={`nav-item child ${pathname === "/admin/questions" ? "active" : ""}`}>
-                  All Questions
-                </Link>
-                <Link href="/admin/questions/new" className={`nav-item child ${pathname === "/admin/questions/new" ? "active" : ""}`}>
-                  + Add Question
-                </Link>
-              </div>
-            )}
-          </div>
-
-          {/* Media */}
-          <Link href="/admin/media" className={`nav-item ${pathname === "/admin/media" ? "active" : ""}`}>
-            <span className="nav-icon">🖼️</span>
-            {sidebarOpen && <span>Media Library</span>}
-          </Link>
+          {mainItems.map(renderNavItem)}
+          {toolItems.length > 0 && (
+            <div className="nav-divider" />
+          )}
+          {toolItems.map(renderNavItem)}
         </nav>
 
         <div className="sidebar-footer">
-          <Link href="/" className="nav-item">
-            <span className="nav-icon">🌐</span>
-            {sidebarOpen && <span>View Website</span>}
-          </Link>
+          {footerItems.map(renderNavItem)}
         </div>
       </aside>
 
-      {/* Main Content */}
       <main className={`admin-main ${sidebarOpen ? "sidebar-open" : "sidebar-closed"}`}>
         <header className="admin-header">
           <div className="header-left">
@@ -131,6 +110,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
               {pathname === "/admin/questions" && "Questions"}
               {(pathname === "/admin/questions/new" || pathname.match(/\/admin\/questions\/.*\/edit/)) && "Question Editor"}
               {pathname === "/admin/media" && "Media Library"}
+              {pathname === "/admin/settings/menu" && "Menu Settings"}
             </h1>
           </div>
           <div className="header-right">
@@ -265,12 +245,6 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
           flex-shrink: 0;
         }
 
-        .nav-arrow {
-          margin-left: auto;
-          font-size: 10px;
-          opacity: 0.6;
-        }
-
         .nav-children {
           padding-left: 16px;
         }
@@ -283,6 +257,11 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
 
         .nav-item.child.active {
           color: #60a5fa;
+        }
+
+        .nav-divider {
+          border-top: 1px solid rgba(255, 255, 255, 0.08);
+          margin: 8px 0;
         }
 
         .sidebar-footer {
