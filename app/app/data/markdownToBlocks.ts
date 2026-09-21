@@ -189,7 +189,7 @@ export function markdownToBlocks(markdown: string): AnswerBlock[] {
       blocks.push({
         id: genId("b"),
         type: "image",
-        imageUrl: imgMatch[2],
+        imageUrl: imgMatch[2].replace(/^\/\//, "/"),
         alt: imgMatch[1],
         caption: "",
         alignment: "center",
@@ -252,11 +252,44 @@ export function markdownToBlocks(markdown: string): AnswerBlock[] {
       i++;
     }
     if (paraLines.length > 0) {
-      blocks.push({
-        id: genId("b"),
-        type: "paragraph",
-        content: cleanInlineMarkdown(paraLines.join(" ")),
-      });
+      // Split paragraph content by inline images to render them properly
+      const fullText = paraLines.join(" ");
+      const imageRegex = /!\[([^\]]*)\]\(([^)]+)\)/g;
+      let lastIndex = 0;
+      let match: RegExpExecArray | null;
+
+      while ((match = imageRegex.exec(fullText)) !== null) {
+        // Text before the image
+        const before = fullText.slice(lastIndex, match.index).trim();
+        if (before) {
+          blocks.push({
+            id: genId("b"),
+            type: "paragraph",
+            content: cleanInlineMarkdown(before),
+          });
+        }
+        // The image block
+        blocks.push({
+          id: genId("b"),
+          type: "image",
+          imageUrl: match[2].replace(/^\/\//, "/"),
+          alt: match[1],
+          caption: "",
+          alignment: "center",
+          width: "100",
+        });
+        lastIndex = match.index + match[0].length;
+      }
+
+      // Text after the last image (or entire text if no images)
+      const after = fullText.slice(lastIndex).trim();
+      if (after) {
+        blocks.push({
+          id: genId("b"),
+          type: "paragraph",
+          content: cleanInlineMarkdown(after),
+        });
+      }
     }
   }
 
