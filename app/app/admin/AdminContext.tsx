@@ -1,8 +1,12 @@
 "use client";
 
-import { createContext, useContext, useState, useCallback, ReactNode } from "react";
+import { createContext, useContext, useState, useCallback, useEffect, useRef, ReactNode } from "react";
 import { Category, Question, AnswerBlock, Media, SidebarMenuItem } from "./types";
-import { getCategories, saveCategories, getQuestions, saveQuestions, getSidebarMenu, saveSidebarMenu } from "../data/storage";
+import {
+  getCategories, saveCategories, getQuestions, saveQuestions,
+  getSidebarMenu, saveSidebarMenu,
+  fetchServerCustomQuestions, mergeServerCustomQuestions, persistCustomQuestionsToServer,
+} from "../data/storage";
 
 interface AdminContextType {
   categories: Category[];
@@ -43,6 +47,30 @@ export function AdminProvider({ children }: { children: ReactNode }) {
   });
   const [media] = useState<Media[]>([]);
   const [sidebarMenu, setSidebarMenu] = useState<SidebarMenuItem[]>(() => getSidebarMenu() as SidebarMenuItem[]);
+  const firstQuestionsRun = useRef(true);
+
+  // Pull server JSON (source of truth) on load, merge anything this browser misses
+  useEffect(() => {
+    let cancelled = false;
+    fetchServerCustomQuestions().then((serverCustom) => {
+      if (cancelled || serverCustom.length === 0) return;
+      setQuestions((prev) => {
+        const merged = mergeServerCustomQuestions(prev, serverCustom);
+        if (merged.length !== prev.length) saveQuestions(merged);
+        return merged;
+      });
+    });
+    return () => { cancelled = true; };
+  }, []);
+
+  // Auto-save every questions change to the server JSON file (debounced)
+  useEffect(() => {
+    if (firstQuestionsRun.current) { firstQuestionsRun.current = false; return; }
+    const t = setTimeout(() => {
+      persistCustomQuestionsToServer(questions).catch(() => {});
+    }, 800);
+    return () => clearTimeout(t);
+  }, [questions]);
 
   const addCategory = useCallback((cat: Omit<Category, "id" | "order">) => {
     const newCat: Category = { ...cat, id: `cat-${Date.now()}`, order: categories.length + 1 };

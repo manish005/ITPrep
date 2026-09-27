@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useAdmin } from "./AdminContext";
+import { extractCustomQuestions, saveQuestions } from "../data/storage";
 
 export default function QuestionManager() {
   const router = useRouter();
@@ -23,6 +24,107 @@ export default function QuestionManager() {
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editValue, setEditValue] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
+
+  // Server backup / recovery state
+  const [syncStatus, setSyncStatus] = useState("");
+  const [syncing, setSyncing] = useState(false);
+  const fileRef = useRef<HTMLInputElement>(null);
+
+  const handleExport = () => {
+    const blob = new Blob([JSON.stringify(questions, null, 2)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `qa-backup-${new Date().toISOString().split("T")[0]}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+    setSyncStatus(`Exported ${questions.length} questions. Keep this file safe.`);
+  };
+
+  const handleImportFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    try {
+      const text = await file.text();
+      const parsed = JSON.parse(text);
+      const list = Array.isArray(parsed) ? parsed : parsed.questions;
+      if (!Array.isArray(list)) throw new Error("bad file");
+      saveQuestions(list);
+      setSyncStatus(`Imported ${list.length} questions. Reloading...`);
+      setTimeout(() => window.location.reload(), 800);
+    } catch {
+      setSyncStatus("Import failed: not a valid backup file.");
+    } finally {
+      if (fileRef.current) fileRef.current.value = "";
+    }
+  };
+
+  const handlePushToServer = async () => {
+    try {
+      setSyncing(true);
+      setSyncStatus("Checking server...");
+      const serverRes = await fetch("/api/custom-questions");
+      const serverData = await serverRes.json();
+      const serverCount = serverData.count ?? 0;
+      const custom = extractCustomQuestions(questions);
+      if (custom.length === 0) {
+        setSyncStatus("No custom questions in this browser to push. Nothing saved.");
+        return;
+      }
+      if (serverCount > custom.length) {
+        const ok = confirm(
+          `Server has ${serverCount} saved questions but this browser only has ${custom.length} custom ones. Pushing would OVERWRITE the server copy. Continue?`
+        );
+        if (!ok) {
+          setSyncStatus("Push cancelled. Use Pull first if this browser lost data.");
+          return;
+        }
+      } else if (!confirm(`Push ${custom.length} custom questions to server file?`)) {
+        setSyncStatus("Push cancelled.");
+        return;
+      }
+      setSyncStatus("Saving to server...");
+      const res = await fetch("/api/custom-questions", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ questions: custom }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "save failed");
+      setSyncStatus(`Saved ${data.count} questions to server. Commit custom-questions.json to keep them.`);
+    } catch (err: any) {
+      setSyncStatus(`Push failed: ${err?.message || "unknown error"}`);
+    } finally {
+      setSyncing(false);
+    }
+  };
+
+  const handlePullFromServer = async () => {
+    try {
+      setSyncing(true);
+      setSyncStatus("Loading from server...");
+      const res = await fetch("/api/custom-questions");
+      const data = await res.json();
+      const serverQs = Array.isArray(data.questions) ? data.questions : [];
+      if (serverQs.length === 0) {
+        setSyncStatus("Server file is empty. Nothing to pull.");
+        return;
+      }
+      const localIds = new Set(questions.map((q: any) => q.id));
+      const missing = serverQs.filter((q: any) => !localIds.has(q.id));
+      if (missing.length === 0) {
+        setSyncStatus(`Already up to date (${serverQs.length} on server).`);
+        return;
+      }
+      saveQuestions([...questions, ...missing]);
+      setSyncStatus(`Restored ${missing.length} questions from server. Reloading...`);
+      setTimeout(() => window.location.reload(), 800);
+    } catch (err: any) {
+      setSyncStatus(`Pull failed: ${err?.message || "unknown error"}`);
+    } finally {
+      setSyncing(false);
+    }
+  };
 
   useEffect(() => {
     setMounted(true);
@@ -190,6 +292,20 @@ export default function QuestionManager() {
         <Link href="/admin/questions/new" className="btn-primary">+ Add Question</Link>
       </div>
 
+      <div className="backup-bar">
+        <span className="backup-hint">Auto-saves to server JSON file. Export backup after big sessions.</span>
+        <div className="backup-actions">
+          <button className="btn-backup" onClick={handleExport} disabled={syncing}>Export backup</button>
+          <button className="btn-backup" onClick={() => fileRef.current?.click()} disabled={syncing}>Import backup</button>
+          <button className="btn-backup primary" onClick={handlePushToServer} disabled={syncing}>
+            {syncing ? "Working..." : "Push to server"}
+          </button>
+          <button className="btn-backup" onClick={handlePullFromServer} disabled={syncing}>Pull from server</button>
+        </div>
+        {syncStatus && <p className="sync-status">{syncStatus}</p>}
+        <input ref={fileRef} type="file" accept="application/json" style={{ display: "none" }} onChange={handleImportFile} />
+      </div>
+
       <div className="filters">
         <input type="text" placeholder="Search questions..." value={search} onChange={(e) => setSearch(e.target.value)} className="search" />
         <select value={filterCat} onChange={(e) => setFilterCat(e.target.value)}>
@@ -303,6 +419,21 @@ export default function QuestionManager() {
           display: inline-block; cursor: pointer;
         }
         .btn-primary:hover { background: #2563eb; }
+        .backup-bar {
+          background: #fffbeb; border: 1px solid #fde68a; border-radius: 10px;
+          padding: 10px 14px; margin-bottom: 16px;
+        }
+        .backup-hint { font-size: 12px; color: #92400e; font-weight: 600; }
+        .backup-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+        .btn-backup {
+          padding: 8px 14px; background: white; border: 1px solid #e2e8f0;
+          border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer; color: #475569;
+        }
+        .btn-backup:hover:not(:disabled) { border-color: #3b82f6; color: #3b82f6; }
+        .btn-backup.primary { background: #3b82f6; border-color: #3b82f6; color: white; }
+        .btn-backup.primary:hover:not(:disabled) { background: #2563eb; color: white; }
+        .btn-backup:disabled { opacity: 0.6; cursor: wait; }
+        .sync-status { font-size: 12px; color: #475569; margin: 8px 0 0 0; }
         .filters { display: flex; gap: 10px; margin-bottom: 16px; }
         .search {
           flex: 1; min-width: 200px; padding: 10px 14px; border: 1px solid #e2e8f0;

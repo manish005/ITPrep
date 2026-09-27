@@ -6,7 +6,7 @@ import { BookOpen } from "lucide-react";
 import { Modal } from "./components/Modal";
 import { Sidebar } from "./components/Sidebar";
 import { TopNav } from "./components/TopNav";
-import { getQuestions, getCategories } from "./data/storage";
+import { getQuestions, getCategories, fetchServerCustomQuestions, mergeServerCustomQuestions } from "./data/storage";
 import AnswerRenderer from "./admin/AnswerRenderer";
 
 function getChildCategoryIds(categories: any[], parentId: string): string[] {
@@ -30,6 +30,11 @@ export default function Home() {
   useEffect(() => {
     setQuestionsData(getQuestions());
     setCategoriesData(getCategories());
+    // Merge questions saved to the server JSON file (source of truth)
+    fetchServerCustomQuestions().then((serverCustom) => {
+      if (serverCustom.length === 0) return;
+      setQuestionsData((prev) => mergeServerCustomQuestions(prev, serverCustom));
+    });
   }, []);
 
   const handleFilterChange = (item: string) => {

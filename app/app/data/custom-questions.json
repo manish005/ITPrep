@@ -1,0 +1,2201 @@
+[
+  {
+    "title": "What is Mircoservice?",
+    "slug": "mircoservice-define",
+    "categoryId": "cat-1789549564541",
+    "tags": [
+      "Microservice"
+    ],
+    "difficulty": "easy",
+    "status": "published",
+    "id": "q-1789549670460",
+    "createdAt": "2026-09-16",
+    "updatedAt": "2026-09-16",
+    "order": 1,
+    "answer": {
+      "id": "a-1789549670467",
+      "questionId": "q-1789549670460",
+      "lastModified": "2026-09-16",
+      "blocks": [
+        {
+          "id": "1789549614753-1-j20u64",
+          "type": "paragraph",
+          "content": "Microservices are an architectural style where an application is built as a collection of small, independent, and loosely\ncoupled services."
+        },
+        {
+          "id": "1789549652313-2-jz85ru",
+          "type": "image",
+          "imageUrl": "/images/microservice/1789549663179.png",
+          "alt": "Microservice Diagram",
+          "alignment": "center",
+          "width": "100%",
+          "caption": "Microservice Diagram"
+        }
+      ]
+    }
+  },
+  {
+    "title": "How do Microservices differ from Monolithic Architecture?",
+    "slug": "microservice-architecture",
+    "categoryId": "cat-1789549564541",
+    "tags": [
+      "Microservice"
+    ],
+    "difficulty": "easy",
+    "status": "published",
+    "id": "q-1789549970598",
+    "createdAt": "2026-09-16",
+    "updatedAt": "2026-09-16",
+    "order": 2,
+    "answer": {
+      "id": "a-1789549970604",
+      "questionId": "q-1789549970598",
+      "lastModified": "2026-09-16",
+      "blocks": [
+        {
+          "id": "1789549889418-9-qr2e1j",
+          "type": "image",
+          "imageUrl": "/images/microservice/1789549913491.png",
+          "alt": "Monolithic Architecture vs Microservice",
+          "alignment": "center",
+          "width": "100%",
+          "caption": "Monolithic Architecture vs Microservice"
+        },
+        {
+          "id": "1789550247920-10-dk871b",
+          "type": "table",
+          "columns": [
+            "Features",
+            "Monolithic Architecture",
+            "Microservices Architecture"
+          ],
+          "rows": [
+            {
+              "id": "1789550247920-11-4mf3tb",
+              "cells": [
+                {
+                  "id": "1789550247920-12-3auujn",
+                  "content": "Architecture"
+                },
+                {
+                  "id": "1789550247920-13-6znpg0",
+                  "content": "The entire application is built and deployed as a single unit."
+                },
+                {
+                  "id": "1789550247920-14-0to2wv",
+                  "content": "The application is divided into small, independent services, each responsible for a specific business functionality. Scalability:"
+                }
+              ]
+            },
+            {
+              "id": "1789550345237-15-qtcvnr",
+              "cells": [
+                {
+                  "id": "1789550345237-16-zabsnn",
+                  "content": "Scalability"
+                },
+                {
+                  "id": "1789550345237-17-e81ry2",
+                  "content": "The entire application needs to be scaled even if only one feature requires more resources."
+                },
+                {
+                  "id": "1789550345237-18-kabkjj",
+                  "content": "Individual services can be scaled independently based on their requirements."
+                }
+              ]
+            },
+            {
+              "id": "1789550345734-19-g1t1d3",
+              "cells": [
+                {
+                  "id": "1789550345734-20-osy3kn",
+                  "content": "Technology Stack"
+                },
+                {
+                  "id": "1789550345734-21-eqaijv",
+                  "content": "Usually uses a common technology stack across the application."
+                },
+                {
+                  "id": "1789550345734-22-9qthrt",
+                  "content": "Different services can use different technologies or programming languages."
+                }
+              ]
+            },
+            {
+              "id": "1789550346076-23-sazo0r",
+              "cells": [
+                {
+                  "id": "1789550346076-24-upx81e",
+                  "content": "Deployment"
+                },
+                {
+                  "id": "1789550346076-25-6gczuu",
+                  "content": "A small change may require redeploying the entire application."
+                },
+                {
+                  "id": "1789550346076-26-ocxlm9",
+                  "content": "Individual services can be deployed independently without redeploying the entire system."
+                }
+              ]
+            },
+            {
+              "id": "1789550346497-27-jgigb3",
+              "cells": [
+                {
+                  "id": "1789550346497-28-0wsbv1",
+                  "content": "Use Case"
+                },
+                {
+                  "id": "1789550346497-29-q9f8a2",
+                  "content": "Suitable for small applications, simple systems, or applications where simplicity is important."
+                },
+                {
+                  "id": "1789550346497-30-h0sr9k",
+                  "content": "Suitable for large, complex applications where independent development, deployment, and scaling of business functionalities are required."
+                }
+              ]
+            }
+          ],
+          "headerEnabled": true
+        }
+      ]
+    }
+  },
+  {
+    "title": "what are the key features of microservices?",
+    "slug": "features-microservices",
+    "categoryId": "cat-1789549564541",
+    "tags": [
+      "Microservice"
+    ],
+    "difficulty": "easy",
+    "status": "published",
+    "id": "q-1789553401982",
+    "createdAt": "2026-09-16",
+    "updatedAt": "2026-09-16",
+    "order": 3,
+    "answer": {
+      "id": "a-1789553401990",
+      "questionId": "q-1789553401982",
+      "lastModified": "2026-09-16",
+      "blocks": [
+        {
+          "id": "1789553297779-1-3q8gta",
+          "type": "paragraph",
+          "content": "Key Features of Microservices"
+        },
+        {
+          "id": "1789553315947-2-28os25",
+          "type": "bullet-list",
+          "items": [
+            {
+              "id": "1789553315947-3-ude9ea",
+              "title": "Independent Deployment",
+              "description": "Each microservice can be developed, tested, and deployed independently without redeploying the entire application."
+            },
+            {
+              "id": "1789553344779-4-7ecy42",
+              "title": "Fault Isolation",
+              "description": "Failure in one microservice does not necessarily bring down the entire application. Other services can continue to operate independently.",
+              "code": "",
+              "codeLanguage": "typescript",
+              "subItems": []
+            },
+            {
+              "id": "1789553348307-5-4w11ug",
+              "title": "Scalability",
+              "description": "Individual services can be scaled independently based on their workload or resource requirements.",
+              "code": "",
+              "codeLanguage": "typescript",
+              "subItems": []
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "title": "Name the main components of Microservices?",
+    "slug": "components-microservices",
+    "categoryId": "cat-1789549564541",
+    "tags": [
+      "Microservice"
+    ],
+    "difficulty": "medium",
+    "status": "published",
+    "id": "q-1789556851661",
+    "createdAt": "2026-09-16",
+    "updatedAt": "2026-09-16",
+    "order": 4,
+    "answer": {
+      "id": "a-1789556851668",
+      "questionId": "q-1789556851661",
+      "lastModified": "2026-09-16",
+      "blocks": [
+        {
+          "id": "1789558610695-21-6o039v",
+          "type": "image",
+          "imageUrl": "/images/microservice/1789558633302.png",
+          "alt": "microservice components",
+          "alignment": "center",
+          "width": "100%",
+          "caption": "microservice components"
+        },
+        {
+          "id": "1789554291012-12-zlmg0d",
+          "type": "heading",
+          "level": 2,
+          "text": "Core Characteristics"
+        },
+        {
+          "id": "1789554152294-7-cvfqjt",
+          "type": "bullet-list",
+          "items": [
+            {
+              "id": "1789554152294-8-ofe9gv",
+              "title": "Service Independence",
+              "description": "Each microservice is independently developed, deployed, and maintained."
+            },
+            {
+              "id": "1789554177080-9-nwiblv",
+              "title": "Domain-Driven Design (DDD)",
+              "description": "Services are organized around specific business domains or capabilities.",
+              "code": "",
+              "codeLanguage": "typescript",
+              "subItems": []
+            },
+            {
+              "id": "1789554205482-10-ujt6yz",
+              "title": "API Communication",
+              "description": "Microservices communicate with each other through APIs, commonly REST, gRPC, or messaging.",
+              "code": "",
+              "codeLanguage": "typescript",
+              "subItems": []
+            },
+            {
+              "id": "1789554266493-11-kkt6ei",
+              "title": "Technology Diversity",
+              "description": "Different microservices can use different programming languages, frameworks, or technologies based on their requirements.",
+              "code": "",
+              "codeLanguage": "typescript",
+              "subItems": []
+            }
+          ]
+        },
+        {
+          "id": "1789556697288-13-4m63gj",
+          "type": "heading",
+          "level": 2,
+          "text": "Supporting Components"
+        },
+        {
+          "id": "1789556711616-14-9ikw9w",
+          "type": "bullet-list",
+          "items": [
+            {
+              "id": "1789556711616-15-yrwt2i",
+              "title": "Service Registry and Discovery",
+              "description": "Helps services find and communicate with other available services dynamically."
+            },
+            {
+              "id": "1789556741562-16-4he72a",
+              "title": "API Gateway",
+              "description": "Acts as a single entry point for clients and routes requests to the appropriate microservice.",
+              "code": "",
+              "codeLanguage": "typescript",
+              "subItems": []
+            },
+            {
+              "id": "1789556759323-17-ks910w",
+              "title": "Load Balancer",
+              "description": "Distributes incoming requests across multiple instances of a service to improve availability and performance.",
+              "code": "",
+              "codeLanguage": "typescript",
+              "subItems": []
+            },
+            {
+              "id": "1789556779666-18-7fd324",
+              "title": "Data Management",
+              "description": "Each service typically manages its own data and database to maintain loose coupling.",
+              "code": "",
+              "codeLanguage": "typescript",
+              "subItems": []
+            },
+            {
+              "id": "1789556808429-19-23677i",
+              "title": "Monitoring and Logging",
+              "description": "Tracks service health, performance, errors, and application activity across the distributed system.",
+              "code": "",
+              "codeLanguage": "typescript",
+              "subItems": []
+            },
+            {
+              "id": "1789556827716-20-m2v174",
+              "title": "CI/CD Pipeline",
+              "description": "Automates building, testing, and deploying individual microservices independently.",
+              "code": "",
+              "codeLanguage": "typescript",
+              "subItems": []
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "title": "Explain the role of an API Gateway in Microservices?",
+    "slug": "api-gateway-microservices",
+    "categoryId": "cat-1789549564541",
+    "tags": [
+      "Microservices"
+    ],
+    "difficulty": "easy",
+    "status": "published",
+    "id": "q-1789559489551",
+    "createdAt": "2026-09-16",
+    "updatedAt": "2026-09-16",
+    "order": 5,
+    "answer": {
+      "id": "a-1789559489559",
+      "questionId": "q-1789559489551",
+      "lastModified": "2026-09-16",
+      "blocks": [
+        {
+          "id": "1789559036117-22-75nl5v",
+          "type": "paragraph",
+          "content": "An API Gateway is the single entry point for clients in a microservices architecture. It handles concerns like request routing, authentication, rate limiting, load balancing, and response aggregation, so clients don't need to communicate directly with individual microservices."
+        },
+        {
+          "id": "1789559717463-32-o8yrq8",
+          "type": "image",
+          "imageUrl": "/images/microservice/1789559733994.png",
+          "alt": "Api Gateway",
+          "alignment": "center",
+          "width": "100%",
+          "caption": "Api Gateway"
+        },
+        {
+          "id": "1789559273012-23-un6ici",
+          "type": "heading",
+          "level": 4,
+          "text": "Key responsibilities:"
+        },
+        {
+          "id": "1789559297700-24-ecdnel",
+          "type": "bullet-list",
+          "items": [
+            {
+              "id": "1789559297700-25-jn1o11",
+              "title": "Request Routing",
+              "description": "Routes client requests to the appropriate microservice."
+            },
+            {
+              "id": "1789559312418-26-51ya2c",
+              "title": "Authentication & Authorization",
+              "description": "Validates JWT tokens and controls access to services.",
+              "code": "",
+              "codeLanguage": "typescript",
+              "subItems": []
+            },
+            {
+              "id": "1789559316016-27-yw13ql",
+              "title": "Load Balancing",
+              "description": "Distributes requests across multiple instances of a service.",
+              "code": "",
+              "codeLanguage": "typescript",
+              "subItems": []
+            },
+            {
+              "id": "1789559318391-28-bpy67s",
+              "title": "Rate Limiting",
+              "description": "Controls the number of requests to protect services from excessive traffic.",
+              "code": "",
+              "codeLanguage": "typescript",
+              "subItems": []
+            },
+            {
+              "id": "1789559320361-29-f0qk8k",
+              "title": "Response Aggregation",
+              "description": "Can combine responses from multiple microservices into a single response.",
+              "code": "",
+              "codeLanguage": "typescript",
+              "subItems": []
+            },
+            {
+              "id": "1789559366629-30-bsjdmt",
+              "title": "Logging & Monitoring",
+              "description": "Centralizes request logging, tracing, and monitoring.",
+              "code": "",
+              "codeLanguage": "typescript",
+              "subItems": []
+            },
+            {
+              "id": "1789559371480-31-4h7dx1",
+              "title": "Protocol Transformation",
+              "description": "Can translate between protocols such as HTTP and gRPC.",
+              "code": "",
+              "codeLanguage": "typescript",
+              "subItems": []
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "title": "What is Service Discovery in Microservices?",
+    "slug": "service-discovery",
+    "categoryId": "cat-1789549564541",
+    "tags": [
+      "Microservices"
+    ],
+    "difficulty": "medium",
+    "status": "published",
+    "id": "q-1789560703502",
+    "createdAt": "2026-09-16",
+    "updatedAt": "2026-09-16",
+    "order": 6,
+    "answer": {
+      "id": "a-1789560703509",
+      "questionId": "q-1789560703502",
+      "lastModified": "2026-09-16",
+      "blocks": [
+        {
+          "id": "1789560360039-33-fhmsej",
+          "type": "paragraph",
+          "content": "Service Discovery is a mechanism that enables microservices to dynamically locate and communicate with each other within a distributed system. It ensures that services can find and connect to other services without hard-coded\nconfigurations, promoting flexibility and scalability."
+        },
+        {
+          "id": "1789560841818-46-uvg54g",
+          "type": "image",
+          "imageUrl": "/images/microservice/1789560868616.png",
+          "alt": "Service Registry",
+          "alignment": "center",
+          "width": "100%",
+          "caption": "Service Registry"
+        },
+        {
+          "id": "1789560468343-34-7cwjfk",
+          "type": "heading",
+          "level": 4,
+          "text": "How it works"
+        },
+        {
+          "id": "1789560490953-36-j15h71",
+          "type": "numbered-list",
+          "items": [
+            {
+              "id": "1789560490953-37-ka4fw5",
+              "title": "",
+              "description": "A microservice starts and registers itself with a Service Registry."
+            },
+            {
+              "id": "1789560514645-38-ptk187",
+              "title": "",
+              "description": "The registry stores its service name, IP address, port, and health status.",
+              "code": "",
+              "codeLanguage": "typescript",
+              "subItems": []
+            },
+            {
+              "id": "1789560530342-39-w7f5ex",
+              "title": "",
+              "description": "When another service needs to communicate with it, it queries the registry.",
+              "code": "",
+              "codeLanguage": "typescript",
+              "subItems": []
+            },
+            {
+              "id": "1789560534200-40-n8z7dl",
+              "title": "",
+              "description": "The registry returns an available instance.",
+              "code": "",
+              "codeLanguage": "typescript",
+              "subItems": []
+            },
+            {
+              "id": "1789560546109-41-j5f5sn",
+              "title": "",
+              "description": "The calling service sends the request to that instance.",
+              "code": "",
+              "codeLanguage": "typescript",
+              "subItems": []
+            }
+          ]
+        },
+        {
+          "id": "1789560612495-43-xwken8",
+          "type": "code",
+          "language": "markdown",
+          "code": "Order Service\n     |\n     | \"Where is Payment Service?\"\n     ↓\nService Registry\n     |\n     | \"Payment Service → 10.0.1.15:5002\"\n     ↓\nPayment Service"
+        },
+        {
+          "id": "1789560645976-44-vztkql",
+          "type": "quote",
+          "text": "Common tools include Consul, Eureka, and Kubernetes Service Discovery.",
+          "author": ""
+        },
+        {
+          "id": "1789560682228-45-fdhheh",
+          "type": "note",
+          "content": "Service Discovery allows microservices to dynamically locate and communicate with other service instances without hardcoding IP addresses or ports. Services register themselves with a service registry, and other services query the registry to find an available instance.",
+          "noteType": "tip"
+        }
+      ]
+    }
+  },
+  {
+    "title": "What is a Container, and Why is it Used in Microservices?",
+    "slug": "container-in-microservice",
+    "categoryId": "cat-1789549564541",
+    "tags": [
+      "Microservice"
+    ],
+    "difficulty": "medium",
+    "status": "published",
+    "id": "q-1789563282868",
+    "createdAt": "2026-09-16",
+    "updatedAt": "2026-09-16",
+    "order": 7,
+    "answer": {
+      "id": "a-1789563282875",
+      "questionId": "q-1789563282868",
+      "lastModified": "2026-09-16",
+      "blocks": [
+        {
+          "id": "1789562909646-11-n8u20c",
+          "type": "paragraph",
+          "content": "A container is a lightweight, standalone unit that bundles an application along with its dependencies, including libraries, configurations and runtime to ensure consistency across different environments."
+        },
+        {
+          "id": "1789562981239-13-ad7s7g",
+          "type": "image",
+          "imageUrl": "/images/microservice/1789562991967.png",
+          "alt": "container diagram",
+          "alignment": "center",
+          "width": "100%",
+          "caption": "container diagram"
+        },
+        {
+          "id": "1789562972041-12-8aebcr",
+          "type": "heading",
+          "level": 4,
+          "text": "Why are Containers Used in Microservices?"
+        },
+        {
+          "id": "1789563034341-14-qarjur",
+          "type": "bullet-list",
+          "items": [
+            {
+              "id": "1789563034341-15-ru4iwg",
+              "title": "Isolation",
+              "description": "Each microservice runs independently in its own container."
+            },
+            {
+              "id": "1789563060083-16-wf3yxy",
+              "title": "Portability",
+              "description": "The same container can run on a developer machine, server, or cloud environment.",
+              "code": "",
+              "codeLanguage": "typescript",
+              "subItems": []
+            },
+            {
+              "id": "1789563061967-17-l1ootk",
+              "title": "Scalability",
+              "description": "Multiple instances of a service can be easily created when demand increases.",
+              "code": "",
+              "codeLanguage": "typescript",
+              "subItems": []
+            },
+            {
+              "id": "1789563063963-18-voo6dj",
+              "title": "Consistent Environment",
+              "description": "Avoids the common \"works on my machine\" problem.",
+              "code": "",
+              "codeLanguage": "typescript",
+              "subItems": []
+            },
+            {
+              "id": "1789563065896-19-va4j1g",
+              "title": "Fast Deployment",
+              "description": "Containers are lightweight and can start quickly.",
+              "code": "",
+              "codeLanguage": "typescript",
+              "subItems": []
+            },
+            {
+              "id": "1789563167957-20-lq6c2a",
+              "title": "Independent Deployment",
+              "description": "Each microservice can be built, deployed, updated, and restarted independently.",
+              "code": "",
+              "codeLanguage": "typescript",
+              "subItems": []
+            }
+          ]
+        },
+        {
+          "id": "1789563213706-21-hmot4b",
+          "type": "heading",
+          "level": 4,
+          "text": "Example:"
+        },
+        {
+          "id": "1789563241201-22-6zmwzt",
+          "type": "code",
+          "language": "markdown",
+          "code": "                    API Gateway\n                         |\n        +----------------+----------------+\n        |                |                |\n   User Service     Order Service    Payment Service\n        |                |                |\n   Container 1      Container 2      Container 3"
+        },
+        {
+          "id": "1789563265505-23-lgtlhr",
+          "type": "note",
+          "content": "Docker is commonly used to create and run containers, while platforms such as Kubernetes can manage containers at scale.",
+          "noteType": "tip"
+        }
+      ]
+    }
+  },
+  {
+    "title": "How do Microservices Communicate with each other?",
+    "slug": "microservices-communicate",
+    "categoryId": "cat-1789549564541",
+    "tags": [
+      "Microservice"
+    ],
+    "difficulty": "medium",
+    "status": "published",
+    "id": "q-1789563893779",
+    "createdAt": "2026-09-16",
+    "updatedAt": "2026-09-16",
+    "order": 8,
+    "answer": {
+      "id": "a-1789563893785",
+      "questionId": "q-1789563893779",
+      "lastModified": "2026-09-16",
+      "blocks": [
+        {
+          "id": "1789563661175-25-bcry5z",
+          "type": "paragraph",
+          "content": "Microservices communicate mainly through synchronous protocols like REST and gRPC, or asynchronously through message brokers like Azure Service Bus, RabbitMQ, or Kafka. "
+        },
+        {
+          "id": "1789563849177-32-p0het8",
+          "type": "paragraph",
+          "content": "We choose synchronous communication when an immediate response is required and asynchronous communication when we want loose coupling and independent processing."
+        },
+        {
+          "id": "1789563671481-26-jhcwtw",
+          "type": "bullet-list",
+          "items": [
+            {
+              "id": "1789563671481-27-749rjv",
+              "title": "Synchronous Communication",
+              "description": "One service directly calls another service and waits for a response, usually through REST APIs or gRPC."
+            },
+            {
+              "id": "1789563705723-28-uwcmch",
+              "title": "Asynchronous Communication",
+              "description": "A service sends a message/event through a message broker, and the receiving service processes it independently. Common technologies include Azure Service Bus, RabbitMQ, and Kafka.",
+              "code": "",
+              "codeLanguage": "typescript",
+              "subItems": []
+            }
+          ]
+        },
+        {
+          "id": "1789563533185-24-q2ya4s",
+          "type": "image",
+          "imageUrl": "/images/microservice/1789563538772.png",
+          "alt": "",
+          "alignment": "center",
+          "width": "100%"
+        },
+        {
+          "id": "1789563789219-30-mh5k9e",
+          "type": "code",
+          "language": "markdown",
+          "code": "Synchronous:\n\nOrder Service\n     |\n     | HTTP / REST\n     ↓\nPayment Service\n     |\n     ↓\nPayment Response"
+        },
+        {
+          "id": "1789563797847-31-u3bqeu",
+          "type": "code",
+          "language": "markdown",
+          "code": "Asynchronous:\n\nOrder Service\n     |\n     | OrderCreated Event\n     ↓\nMessage Broker\n     |\n     ↓\nPayment Service"
+        }
+      ]
+    }
+  },
+  {
+    "title": "How Would You Handle a Microservice Failure?",
+    "slug": "microservice-failure-handle",
+    "categoryId": "cat-1789549564541",
+    "tags": [
+      "Microservices"
+    ],
+    "difficulty": "medium",
+    "status": "published",
+    "id": "q-1789566559134",
+    "createdAt": "2026-09-16",
+    "updatedAt": "2026-09-16",
+    "order": 9,
+    "answer": {
+      "id": "a-1789566559143",
+      "questionId": "q-1789566559134",
+      "lastModified": "2026-09-16",
+      "blocks": [
+        {
+          "id": "1789565671913-34-v8iqc0",
+          "type": "paragraph",
+          "content": "I would handle microservice failures using timeouts, retries with exponential backoff, circuit breakers, fallbacks, health checks, and monitoring. For asynchronous communication, I would use a message broker so messages aren't lost during temporary service failures. The goal is to isolate the failure and keep the rest of the system available."
+        }
+      ]
+    }
+  },
+  {
+    "title": "How can you ensure backward compatibility in Microservices",
+    "slug": "backward-compatibility-microservices",
+    "categoryId": "cat-1789549564541",
+    "tags": [
+      "Microservices"
+    ],
+    "difficulty": "medium",
+    "status": "published",
+    "id": "q-1789570452453",
+    "createdAt": "2026-09-16",
+    "updatedAt": "2026-09-17",
+    "order": 10,
+    "answer": {
+      "id": "a-1789570452460",
+      "questionId": "q-1789570452453",
+      "lastModified": "2026-09-17",
+      "blocks": [
+        {
+          "id": "1789570254082-35-cw732y",
+          "type": "paragraph",
+          "content": "I ensure backward compatibility by using API versioning, maintaining existing contracts, making additive rather than breaking changes, and using contract testing. I also use a proper deprecation strategy and ensure database and event-schema changes remain compatible during rolling deployments."
+        },
+        {
+          "id": "1789570358859-36-bgwzln",
+          "type": "note",
+          "content": "A deprecation strategy is a planned process for retiring an old API or service version without suddenly breaking existing consumers.",
+          "noteType": "info"
+        }
+      ]
+    }
+  },
+  {
+    "title": "What is the meaning of OAuth and why is it used?",
+    "slug": "oauth-microservice",
+    "categoryId": "cat-1789549564541",
+    "tags": [
+      "Microservices"
+    ],
+    "difficulty": "medium",
+    "status": "published",
+    "id": "q-1789662196596",
+    "createdAt": "2026-09-17",
+    "updatedAt": "2026-09-17",
+    "order": 11,
+    "answer": {
+      "id": "a-1789662196603",
+      "questionId": "q-1789662196596",
+      "lastModified": "2026-09-17",
+      "blocks": [
+        {
+          "id": "1789661624374-39-10alla",
+          "type": "paragraph",
+          "content": "OAuth(Open Authorization) is an authorization framework that allows users to grant third-party applications limited access to their resources using an access token, without sharing their password. The access token defines what resources the application can access and for how long."
+        },
+        {
+          "id": "1789661698667-40-r0qv2x",
+          "type": "heading",
+          "level": 4,
+          "text": "Why is OAuth Used?"
+        },
+        {
+          "id": "1789661722593-42-rgwm5t",
+          "type": "bullet-list",
+          "items": [
+            {
+              "id": "1789661722593-43-otjiyp",
+              "title": "Secure Authorization",
+              "description": "Gives an application limited access to specific resources."
+            },
+            {
+              "id": "1789661733535-44-6b611u",
+              "title": "No Password Sharing",
+              "description": "The application doesn't need the user's password.",
+              "code": "",
+              "codeLanguage": "typescript",
+              "subItems": []
+            },
+            {
+              "id": "1789661751502-45-q2ztxz",
+              "title": "Access Tokens",
+              "description": "Uses tokens to access protected resources.",
+              "code": "",
+              "codeLanguage": "typescript",
+              "subItems": []
+            },
+            {
+              "id": "1789661762156-46-kwsfzg",
+              "title": "Scoped Access",
+              "description": "Permissions can be restricted, such as read-only access.",
+              "code": "",
+              "codeLanguage": "typescript",
+              "subItems": []
+            },
+            {
+              "id": "1789661773956-47-o3k1el",
+              "title": "Token Expiration",
+              "description": "Access tokens can have a limited lifetime.",
+              "code": "",
+              "codeLanguage": "typescript",
+              "subItems": []
+            },
+            {
+              "id": "1789661785200-48-53adwk",
+              "title": "Third-Party Integration",
+              "description": "Commonly used when applications need to interact with external services.",
+              "code": "",
+              "codeLanguage": "typescript",
+              "subItems": []
+            }
+          ]
+        },
+        {
+          "id": "1789661872526-49-utcal8",
+          "type": "heading",
+          "level": 4,
+          "text": "Simple Example"
+        },
+        {
+          "id": "1789661888270-50-nwyur8",
+          "type": "paragraph",
+          "content": "Suppose you click \"Sign in with Google\":"
+        },
+        {
+          "id": "1789661905701-51-mhd1ix",
+          "type": "code",
+          "language": "markdown",
+          "code": "         Your App\n            |\n      Request authorization\n            | \n            ↓\n         Google\n            |\n      User grants permission\n            | \n            ↓\n     Authorization Server\n            |\n       Access Token\n            | \n            ↓\n         Your App\n            |\n            | \n        Access Token\n            ↓\n         Google API"
+        },
+        {
+          "id": "1789662088794-52-xpbnlq",
+          "type": "paragraph",
+          "content": "Your application receives an access token, rather than your Google password, and uses that token to access the resources it has been authorized to access."
+        },
+        {
+          "id": "1789662121288-53-nbloqs",
+          "type": "heading",
+          "level": 4,
+          "text": "OAuth vs JWT"
+        },
+        {
+          "id": "1789662139382-54-h1z530",
+          "type": "bullet-list",
+          "items": [
+            {
+              "id": "1789662139382-55-ntwchs",
+              "title": "OAuth",
+              "description": "Defines how authorization is granted and how access to resources is delegated."
+            },
+            {
+              "id": "1789662162620-56-46suu3",
+              "title": "JWT",
+              "description": "A token format that can be used to carry claims/identity information.",
+              "code": "",
+              "codeLanguage": "typescript",
+              "subItems": []
+            }
+          ]
+        },
+        {
+          "id": "1789662183565-57-u9kuvv",
+          "type": "paragraph",
+          "content": "OAuth and JWT are therefore not alternatives; OAuth can use JWTs as tokens."
+        }
+      ]
+    }
+  },
+  {
+    "title": "What is CQRS pattern in microservices? What problem does it solve",
+    "slug": "CQRS-Pattern-Microservices",
+    "categoryId": "cat-1789549564541",
+    "tags": [
+      "Microservices"
+    ],
+    "difficulty": "medium",
+    "status": "published",
+    "id": "q-1789663091391",
+    "createdAt": "2026-09-17",
+    "updatedAt": "2026-09-17",
+    "order": 12,
+    "answer": {
+      "id": "a-1789663091397",
+      "questionId": "q-1789663091391",
+      "lastModified": "2026-09-17",
+      "blocks": [
+        {
+          "id": "1789662295271-58-rjsp62",
+          "type": "paragraph",
+          "content": "CQRS stands for Command Query Responsibility Segregation. It separates read operations from write operations by using different models or services for commands and queries. It solves problems such as high read/write workload differences, scalability, and complex data retrieval by allowing each side to be optimized and scaled independently."
+        },
+        {
+          "id": "1789662651904-60-57796g",
+          "type": "paragraph",
+          "content": "In simple terms:"
+        },
+        {
+          "id": "1789662666740-63-qy93gq",
+          "type": "code",
+          "language": "markdown",
+          "code": "              Client\n                |\n           API Gateway\n                |\n        ┌───────┴───────┐\n        ↓               ↓\n     Command          Query\n     (Write)           (Read)\n        ↓               ↓\n   Write Database    Read Database"
+        },
+        {
+          "id": "1789663275018-72-qia7se",
+          "type": "image",
+          "imageUrl": "/images/microservice/1789663302274.png",
+          "alt": "CQRS Pattern",
+          "alignment": "center",
+          "width": "100%",
+          "caption": "CQRS Pattern"
+        },
+        {
+          "id": "1789662763503-64-aioxbo",
+          "type": "heading",
+          "level": 4,
+          "text": "What problem does CQRS solve?"
+        },
+        {
+          "id": "1789662774864-65-w0xyie",
+          "type": "paragraph",
+          "content": "The main problem is that read and write operations often have different requirements."
+        },
+        {
+          "id": "1789662802108-68-1hx7cg",
+          "type": "paragraph",
+          "content": "For example, in an insurance system:"
+        },
+        {
+          "id": "1789662798923-66-hdtq70",
+          "type": "bullet-list",
+          "items": [
+            {
+              "id": "1789662798923-67-jsmfr2",
+              "title": "Command",
+              "description": "Update customer's salary"
+            },
+            {
+              "id": "1789662835877-69-xxzx72",
+              "title": "Command",
+              "description": "Add a new benefit",
+              "code": "",
+              "codeLanguage": "typescript",
+              "subItems": []
+            },
+            {
+              "id": "1789662847525-70-92eib4",
+              "title": "Query",
+              "description": "Get customer policy details",
+              "code": "",
+              "codeLanguage": "typescript",
+              "subItems": []
+            },
+            {
+              "id": "1789662858444-71-z1lxp7",
+              "title": "Query",
+              "description": "Generate a customer wealth report",
+              "code": "",
+              "codeLanguage": "typescript",
+              "subItems": []
+            }
+          ]
+        },
+        {
+          "id": "1789662613135-59-t9jtqg",
+          "type": "note",
+          "content": "CQRS does not necessarily mean two separate databases. You can implement CQRS with the same database but separate command/query models, or use separate read and write databases when the architecture requires it.",
+          "noteType": "tip"
+        }
+      ]
+    }
+  },
+  {
+    "title": "Compare API gateway and load balancer",
+    "slug": "API-gateway-vs-Load-Balancer",
+    "categoryId": "cat-1789549564541",
+    "tags": [
+      "Microservices"
+    ],
+    "difficulty": "medium",
+    "status": "published",
+    "id": "q-1789719850641",
+    "createdAt": "2026-09-18",
+    "updatedAt": "2026-09-18",
+    "order": 13,
+    "answer": {
+      "id": "a-1789719850646",
+      "questionId": "q-1789719850641",
+      "lastModified": "2026-09-18",
+      "blocks": [
+        {
+          "id": "1789719457075-73-cilt6l",
+          "type": "paragraph",
+          "content": "An API Gateway is the single entry point for clients and handles API-level responsibilities such as request routing, authentication, authorization, rate limiting, and response aggregation. A Load Balancer mainly distributes incoming traffic across multiple healthy instances of the same service to improve availability and scalability."
+        },
+        {
+          "id": "1789719597334-74-eu5qsb",
+          "type": "paragraph",
+          "content": "Simple difference:"
+        },
+        {
+          "id": "1789719601276-75-eldfm6",
+          "type": "table",
+          "columns": [
+            "API Gateway",
+            "Load Balancer"
+          ],
+          "rows": [
+            {
+              "id": "1789719601276-76-z78lyk",
+              "cells": [
+                {
+                  "id": "1789719601276-77-6ee95m",
+                  "content": "Routes requests to different services"
+                },
+                {
+                  "id": "1789719601276-78-pw9vls",
+                  "content": "Distributes requests across service instances"
+                }
+              ]
+            },
+            {
+              "id": "1789719647412-80-7l4xka",
+              "cells": [
+                {
+                  "id": "1789719647412-81-kb34hm",
+                  "content": "Authentication/authorization"
+                },
+                {
+                  "id": "1789719647412-82-wti4ya",
+                  "content": "Traffic distribution"
+                }
+              ]
+            },
+            {
+              "id": "1789719647984-83-eye6n4",
+              "cells": [
+                {
+                  "id": "1789719647984-84-xwph2v",
+                  "content": "Rate limiting"
+                },
+                {
+                  "id": "1789719647984-85-d9rfha",
+                  "content": "Health checks"
+                }
+              ]
+            },
+            {
+              "id": "1789719648434-86-zhc6tk",
+              "cells": [
+                {
+                  "id": "1789719648434-87-z80z05",
+                  "content": "Response aggregation"
+                },
+                {
+                  "id": "1789719648434-88-hojhcr",
+                  "content": "High availability"
+                }
+              ]
+            },
+            {
+              "id": "1789719720388-89-1gt5cz",
+              "cells": [
+                {
+                  "id": "1789719720388-90-2kar92",
+                  "content": "API-level policies"
+                },
+                {
+                  "id": "1789719720388-91-b08qfk",
+                  "content": "Scalability"
+                }
+              ]
+            }
+          ],
+          "headerEnabled": true
+        },
+        {
+          "id": "1789719773973-92-x0vhcp",
+          "type": "heading",
+          "level": 4,
+          "text": "Example"
+        },
+        {
+          "id": "1789719794209-93-c8a84e",
+          "type": "code",
+          "language": "markdown",
+          "code": "Client → API Gateway → Order Service → Load Balancer → Order Instance 1 / 2 / 3"
+        },
+        {
+          "id": "1789719818573-94-lf4f7n",
+          "type": "note",
+          "content": "A gateway decides “which service should handle this request?”, while a load balancer decides “which instance of that service should handle it?”",
+          "noteType": "tip"
+        }
+      ]
+    }
+  },
+  {
+    "title": "What are some common microservices design principles ?",
+    "slug": "microservices-design-principles",
+    "categoryId": "cat-1789549564541",
+    "tags": [
+      "Microservices"
+    ],
+    "difficulty": "medium",
+    "status": "published",
+    "id": "q-1789720536074",
+    "createdAt": "2026-09-18",
+    "updatedAt": "2026-09-18",
+    "order": 14,
+    "answer": {
+      "id": "a-1789720536081",
+      "questionId": "q-1789720536074",
+      "lastModified": "2026-09-18",
+      "blocks": [
+        {
+          "id": "1789720320322-95-yzu58h",
+          "type": "paragraph",
+          "content": "Some common microservices design principles are single responsibility, loose coupling, high cohesion, independent deployment, and decentralized data management. We also follow principles like API-based communication, fault isolation, scalability, observability, and automation through CI/CD."
+        },
+        {
+          "id": "1789720349781-96-40h6v6",
+          "type": "heading",
+          "level": 4,
+          "text": "for Examples:"
+        },
+        {
+          "id": "1789720362269-97-mimv6g",
+          "type": "bullet-list",
+          "items": [
+            {
+              "id": "1789720362269-98-dagdn4",
+              "title": "Single Responsibility",
+              "description": "Each service handles one business capability."
+            },
+            {
+              "id": "1789720387524-99-00a5vo",
+              "title": "Loose Coupling",
+              "description": "Services should depend on contracts rather than internal implementation.",
+              "code": "",
+              "codeLanguage": "typescript",
+              "subItems": []
+            },
+            {
+              "id": "1789720414883-100-9vvc20",
+              "title": "Independent Deployment",
+              "description": "One service can be deployed without deploying the entire system.",
+              "code": "",
+              "codeLanguage": "typescript",
+              "subItems": []
+            },
+            {
+              "id": "1789720416812-101-uycf8w",
+              "title": "Fault Isolation",
+              "description": "Failure of one service should not bring down the whole application.",
+              "code": "",
+              "codeLanguage": "typescript",
+              "subItems": []
+            },
+            {
+              "id": "1789720418400-102-ybfisd",
+              "title": "Decentralized Data",
+              "description": "Each service owns its data rather than sharing one database directly.",
+              "code": "",
+              "codeLanguage": "typescript",
+              "subItems": []
+            },
+            {
+              "id": "1789720491463-103-8hoqos",
+              "title": "Scalability",
+              "description": "Scale individual services based on their workload.",
+              "code": "",
+              "codeLanguage": "typescript",
+              "subItems": []
+            }
+          ]
+        },
+        {
+          "id": "1789720517357-104-4tl2q1",
+          "type": "note",
+          "content": "The interviewer mainly wants to hear independence, loose coupling, fault isolation, scalability, and clear service boundaries.",
+          "noteType": "tip"
+        }
+      ]
+    }
+  },
+  {
+    "title": "How do you ensure security?",
+    "slug": "security-in-microservices",
+    "categoryId": "cat-1789549564541",
+    "tags": [
+      "Microservices"
+    ],
+    "difficulty": "medium",
+    "status": "published",
+    "id": "q-1789721409987",
+    "createdAt": "2026-09-18",
+    "updatedAt": "2026-09-18",
+    "order": 15,
+    "answer": {
+      "id": "a-1789721409994",
+      "questionId": "q-1789721409987",
+      "lastModified": "2026-09-18",
+      "blocks": [
+        {
+          "id": "1789721143823-105-oj9x2y",
+          "type": "paragraph",
+          "content": "In microservices, I ensure security by using HTTPS for communication, OAuth 2.0/JWT for authentication and authorization, and role-based access control for protecting APIs. I also validate inputs, secure secrets using services like Azure Key Vault, apply rate limiting at the API Gateway, and use proper logging and monitoring to detect suspicious activity."
+        },
+        {
+          "id": "1789721171203-106-zlafgs",
+          "type": "heading",
+          "level": 4,
+          "text": "Example"
+        },
+        {
+          "id": "1789721182214-107-5qjmrs",
+          "type": "paragraph",
+          "content": "A user authenticates and receives a JWT access token. The API Gateway validates the token, and individual services verify the required roles or permissions before processing the request."
+        }
+      ]
+    }
+  },
+  {
+    "title": "What are few ways to achieve synchronous and asynchronous communication between microservices",
+    "slug": "communication-async-sync-microservices",
+    "categoryId": "cat-1789549564541",
+    "tags": [
+      "Microservices"
+    ],
+    "difficulty": "medium",
+    "status": "published",
+    "id": "q-1789722563709",
+    "createdAt": "2026-09-18",
+    "updatedAt": "2026-09-18",
+    "order": 16,
+    "answer": {
+      "id": "a-1789722563716",
+      "questionId": "q-1789722563709",
+      "lastModified": "2026-09-18",
+      "blocks": [
+        {
+          "id": "1789721576100-108-mt3lhf",
+          "type": "paragraph",
+          "content": "Microservices can communicate synchronously using REST APIs or gRPC, where the caller waits for an immediate response. For asynchronous communication, we can use message brokers such as Azure Service Bus, RabbitMQ, or Kafka, where one service publishes a message or event and another service processes it independently."
+        },
+        {
+          "id": "1789722291826-109-9uf629",
+          "type": "bullet-list",
+          "items": [
+            {
+              "id": "1789722291826-110-wp6ed4",
+              "title": "Synchronous",
+              "description": "",
+              "code": "Order Service → REST API → Payment Service → Response",
+              "codeLanguage": "typescript"
+            },
+            {
+              "id": "1789722324489-111-pyq1xf",
+              "title": "Asynchronous",
+              "description": "",
+              "code": "Order Service → Azure Service Bus → Payment Service",
+              "codeLanguage": "typescript",
+              "subItems": []
+            }
+          ]
+        },
+        {
+          "id": "1789722357310-112-25oii9",
+          "type": "note",
+          "content": "Use synchronous communication when an immediate response is required and asynchronous communication when we want loose coupling, independent processing, and better resilience.",
+          "noteType": "info"
+        },
+        {
+          "id": "1789722422527-113-dzscqm",
+          "type": "heading",
+          "level": 4,
+          "text": "For example"
+        },
+        {
+          "id": "1789722440620-115-1757zu",
+          "type": "paragraph",
+          "content": "In a food delivery application, once the Order Service successfully creates an order, it can immediately respond with ‘Order placed successfully’. It can then publish an OrderCreated event to a message broker and downstream services such as notification, restaurant processing and delivery can process that event asynchronously."
+        },
+        {
+          "id": "1789722498026-116-kbxg1s",
+          "type": "code",
+          "language": "markdown",
+          "code": "User selects food\n      ↓\nPlace Order\n      ↓\nOrder Service\n      ↓\nOrder created successfully\n      ↓\n\"Order Placed\" response to user\n      │\n      └────→ Message Queue\n                ↓\n        ┌───────┼────────┐\n        ↓       ↓        ↓\n     Restaurant  Payment  Notification\n     processing  events   service\n        ↓\n     Delivery assignment\n        ↓\n     Delivery tracking"
+        }
+      ]
+    }
+  },
+  {
+    "title": "How do you implement rate limiting?",
+    "slug": "rate-limiting-microservice",
+    "categoryId": "cat-1789549564541",
+    "tags": [
+      "Microservices"
+    ],
+    "difficulty": "medium",
+    "status": "published",
+    "id": "q-1789724178430",
+    "createdAt": "2026-09-18",
+    "updatedAt": "2026-09-18",
+    "order": 17,
+    "answer": {
+      "id": "a-1789724178438",
+      "questionId": "q-1789724178430",
+      "lastModified": "2026-09-18",
+      "blocks": [
+        {
+          "id": "1789724025085-117-vs23vg",
+          "type": "paragraph",
+          "content": "Rate limiting controls how many requests a client can make to an API within a specific time period. In a microservices architecture, I can implement it at the API Gateway or API level using algorithms like Fixed Window, Sliding Window, or Token Bucket, and return HTTP 429 when the limit is exceeded."
+        },
+        {
+          "id": "1789724078122-118-5xephx",
+          "type": "heading",
+          "level": 4,
+          "text": "Example"
+        },
+        {
+          "id": "1789724088356-119-mqkl4d",
+          "type": "paragraph",
+          "content": "We can allow a user to make 100 requests per minute. If the user exceeds the limit, the API returns 429 Too Many Requests, and the client can retry after the specified time."
+        },
+        {
+          "id": "1789724128848-120-ut7i29",
+          "type": "note",
+          "content": "Rate limiting protects APIs from abuse, excessive traffic, and overload, while helping maintain availability for other users.",
+          "noteType": "tip"
+        }
+      ]
+    }
+  },
+  {
+    "title": "What is event driven architecture in microservices?",
+    "slug": "event-driven-architecture-microservices",
+    "categoryId": "cat-1789549564541",
+    "tags": [
+      "Microservices"
+    ],
+    "difficulty": "easy",
+    "status": "published",
+    "id": "q-1789724918488",
+    "createdAt": "2026-09-18",
+    "updatedAt": "2026-09-18",
+    "order": 18,
+    "answer": {
+      "id": "a-1789724918495",
+      "questionId": "q-1789724918488",
+      "lastModified": "2026-09-18",
+      "blocks": [
+        {
+          "id": "1789724363777-121-8fi0vf",
+          "type": "paragraph",
+          "content": "Event-Driven Architecture is a microservices approach where services communicate through events instead of directly calling each other. When something happens one service publishes an event to a message broker and other interested services consume that event and process it independently."
+        },
+        {
+          "id": "1789724574410-122-vbs9b0",
+          "type": "heading",
+          "level": 4,
+          "text": "Example"
+        },
+        {
+          "id": "1789724584461-123-fz104j",
+          "type": "code",
+          "language": "markdown",
+          "code": "Order Service\n     ↓\n OrderCreated Event\n     ↓\nMessage Broker (Azure Service Bus)\n     ├──→ Payment Service\n     ├──→ Notification Service\n     └──→ Delivery Service"
+        },
+        {
+          "id": "1789724600339-124-l6dhy3",
+          "type": "paragraph",
+          "content": "For example, when an order is created the Order Service publishes an OrderCreated event. Payment, notification and delivery services can consume that event independently."
+        }
+      ]
+    }
+  },
+  {
+    "title": "What is idempotency and why is it important in microservices?",
+    "slug": "idempotency-microservices",
+    "categoryId": "cat-1789549564541",
+    "tags": [
+      "Microservices"
+    ],
+    "difficulty": "medium",
+    "status": "published",
+    "id": "q-1789726614321",
+    "createdAt": "2026-09-18",
+    "updatedAt": "2026-09-18",
+    "order": 19,
+    "answer": {
+      "id": "a-1789726614327",
+      "questionId": "q-1789726614321",
+      "lastModified": "2026-09-18",
+      "blocks": [
+        {
+          "id": "1789725908251-125-4agzgw",
+          "type": "paragraph",
+          "content": "Idempotency means performing the same operation multiple times produces the same final result as performing it once. It is important in microservices because network failures, retries or duplicate messages can cause the same request to be processed multiple times potentially creating duplicate transactions."
+        },
+        {
+          "id": "1789726555923-126-gty546",
+          "type": "heading",
+          "level": 4,
+          "text": "Example"
+        },
+        {
+          "id": "1789726565936-127-z2ciwz",
+          "type": "paragraph",
+          "content": "For example, if a payment request times out, the client may retry it. We can use a unique Idempotency Key for that payment, so even if the request is received multiple times, the payment is processed only once."
+        },
+        {
+          "id": "1789726598269-129-34f190",
+          "type": "note",
+          "content": "Idempotency protects against duplicate processing, especially with retries and asynchronous messaging.",
+          "noteType": "tip"
+        }
+      ]
+    }
+  },
+  {
+    "title": "What is database sharding and why is it used in microservices",
+    "slug": "database-sharding-microservice",
+    "categoryId": "cat-1789549564541",
+    "tags": [
+      "Microservices"
+    ],
+    "difficulty": "medium",
+    "status": "published",
+    "id": "q-1789726846116",
+    "createdAt": "2026-09-18",
+    "updatedAt": "2026-09-18",
+    "order": 20,
+    "answer": {
+      "id": "a-1789726846124",
+      "questionId": "q-1789726846116",
+      "lastModified": "2026-09-18",
+      "blocks": [
+        {
+          "id": "1789726720630-130-bbuovw",
+          "type": "paragraph",
+          "content": "Database sharding is a technique of splitting a large database into smaller, independent partitions called shards, where each shard contains a subset of the data. In microservices, it is used to handle large data volumes and high traffic by distributing data and database load across multiple servers, improving scalability and performance."
+        },
+        {
+          "id": "1789727099673-134-zrox99",
+          "type": "image",
+          "imageUrl": "/images/microservice/1789727120988.png",
+          "alt": "Database sharding",
+          "alignment": "center",
+          "width": "100%",
+          "caption": "Database sharding"
+        },
+        {
+          "id": "1789726792550-131-yxfnrr",
+          "type": "heading",
+          "level": 4,
+          "text": "Example"
+        },
+        {
+          "id": "1789726802977-132-0eqrx1",
+          "type": "paragraph",
+          "content": "An application with millions of customers could shard customer data based on CustomerId, so customers 1–1 million are stored in one shard and the next group in another."
+        },
+        {
+          "id": "1789726833538-133-bq2r45",
+          "type": "note",
+          "content": "Sharding = horizontal data partitioning used mainly for scalability and reducing database load.",
+          "noteType": "info"
+        }
+      ]
+    }
+  },
+  {
+    "title": "How do you handle data consistency in Microservices?",
+    "slug": "data-consistency",
+    "categoryId": "cat-1789549564541",
+    "tags": [
+      "Microservices"
+    ],
+    "difficulty": "medium",
+    "status": "published",
+    "id": "q-1789729953657",
+    "createdAt": "2026-09-18",
+    "updatedAt": "2026-09-18",
+    "order": 21,
+    "answer": {
+      "id": "a-1789729953664",
+      "questionId": "q-1789729953657",
+      "lastModified": "2026-09-18",
+      "blocks": [
+        {
+          "id": "1789729152894-135-xyo02c",
+          "type": "paragraph",
+          "content": "In microservices, I handle data consistency using database transactions within each service and patterns like Saga for maintaining consistency across multiple services. For asynchronous operations, I use events and message brokers, along with retries and idempotency to handle failures and duplicate messages."
+        },
+        {
+          "id": "1789729296813-136-ye450t",
+          "type": "heading",
+          "level": 4,
+          "text": "Example"
+        },
+        {
+          "id": "1789729304246-137-szgftm",
+          "type": "paragraph",
+          "content": "In an order process, Order, Payment and Inventory may have separate databases. A Saga coordinates these operations, and if payment fails, a compensating action can cancel or roll back the order."
+        }
+      ]
+    }
+  },
+  {
+    "title": "What is canary deployment",
+    "slug": "Canary-deployment",
+    "categoryId": "cat-1789549564541",
+    "tags": [
+      "Microservices"
+    ],
+    "difficulty": "medium",
+    "status": "published",
+    "id": "q-1789730743191",
+    "createdAt": "2026-09-18",
+    "updatedAt": "2026-09-18",
+    "order": 22,
+    "answer": {
+      "id": "a-1789730743199",
+      "questionId": "q-1789730743191",
+      "lastModified": "2026-09-18",
+      "blocks": [
+        {
+          "id": "1789730591645-145-i1bq4k",
+          "type": "paragraph",
+          "content": "Canary deployment is a deployment strategy where we release a new version of an application to a small percentage of users or traffic first, instead of releasing it to everyone at once. We monitor its performance, errors and user impact, and if everything looks good. we gradually increase the traffic to the new version."
+        },
+        {
+          "id": "1789730636716-146-23rue2",
+          "type": "heading",
+          "level": 4,
+          "text": "Example"
+        },
+        {
+          "id": "1789730647869-147-hax2cu",
+          "type": "code",
+          "language": "markdown",
+          "code": "     100% Traffic\n          ↓\n   95% → Old Version\n    5% → New Version\n           ↓\n       Monitor\n           ↓\n      Everything OK\n           ↓\n   50% → New Version\n           ↓\n  100% → New Version"
+        },
+        {
+          "id": "1789730727141-148-9e94tf",
+          "type": "note",
+          "content": "Canary deployment reduces deployment risk by exposing the new version gradually and allowing us to roll back quickly if problems occur.",
+          "noteType": "tip"
+        }
+      ]
+    }
+  },
+  {
+    "title": "How would you monitor microservices?",
+    "slug": "monitor-microservices",
+    "categoryId": "cat-1789549564541",
+    "tags": [
+      "Microservices"
+    ],
+    "difficulty": "medium",
+    "status": "published",
+    "id": "q-1789731867831",
+    "createdAt": "2026-09-18",
+    "updatedAt": "2026-09-18",
+    "order": 23,
+    "answer": {
+      "id": "a-1789731867838",
+      "questionId": "q-1789731867831",
+      "lastModified": "2026-09-18",
+      "blocks": [
+        {
+          "id": "1789731354012-149-44nnos",
+          "type": "paragraph",
+          "content": "I would monitor microservices using centralized logging, metrics, distributed tracing and health checks. I would track metrics such as CPU, memory, request rate, response time, error rate and service availability. while using correlation IDs and distributed tracing to trace a request across multiple services."
+        },
+        {
+          "id": "1789731393618-150-y9v50a",
+          "type": "heading",
+          "level": 4,
+          "text": "Example"
+        },
+        {
+          "id": "1789731414779-151-ubsr05",
+          "type": "paragraph",
+          "content": "In Azure, I could use Application Insights and Azure Monitor to collect application logs, performance metrics, exceptions and distributed traces. Alerts can then notify the team when error rates or response times cross defined thresholds."
+        }
+      ]
+    }
+  },
+  {
+    "title": "What are the DDD principles?",
+    "slug": "ddd-principles",
+    "categoryId": "cat-1789549564541",
+    "tags": [
+      "MIcroservices"
+    ],
+    "difficulty": "medium",
+    "status": "published",
+    "id": "q-1789733987623",
+    "createdAt": "2026-09-18",
+    "updatedAt": "2026-09-18",
+    "order": 24,
+    "answer": {
+      "id": "a-1789733987630",
+      "questionId": "q-1789733987623",
+      "lastModified": "2026-09-18",
+      "blocks": [
+        {
+          "id": "1789732209233-152-afam20",
+          "type": "paragraph",
+          "content": "DDD stands for Domain-Driven Design. Its main principle is to design the software around the business domain and its business rules rather than focusing only on technical implementation. Key DDD concepts include bounded contexts, entities, value objects, aggregates, repositories, and domain services."
+        },
+        {
+          "id": "1789733551846-153-5bv8rj",
+          "type": "heading",
+          "level": 4,
+          "text": "Key principles:"
+        },
+        {
+          "id": "1789733577576-154-7jnjzr",
+          "type": "bullet-list",
+          "items": [
+            {
+              "id": "1789733577576-155-yva3bf",
+              "title": "Ubiquitous Language",
+              "description": " Developers and business use the same terminology."
+            },
+            {
+              "id": "1789733601674-156-5izc5b",
+              "title": "Bounded Context",
+              "description": "Clearly defines the boundary of a particular domain.",
+              "code": "",
+              "codeLanguage": "typescript",
+              "subItems": []
+            },
+            {
+              "id": "1789733651525-157-v1xdir",
+              "title": "Entities",
+              "description": "Objects identified by a unique identity.",
+              "code": "",
+              "codeLanguage": "typescript",
+              "subItems": []
+            },
+            {
+              "id": "1789733669254-158-9e8z7p",
+              "title": "Value Objects",
+              "description": "Objects defined by their values rather than identity.",
+              "code": "",
+              "codeLanguage": "typescript",
+              "subItems": []
+            },
+            {
+              "id": "1789733683343-159-sen7z1",
+              "title": "Aggregates",
+              "description": "Group related entities/value objects with a single consistency boundary.",
+              "code": "",
+              "codeLanguage": "typescript",
+              "subItems": []
+            },
+            {
+              "id": "1789733732000-160-h55l5p",
+              "title": "Domain Services",
+              "description": "Business logic that doesn't naturally belong to an entity/value object.",
+              "code": "",
+              "codeLanguage": "typescript",
+              "subItems": []
+            }
+          ]
+        },
+        {
+          "id": "1789733861171-161-wmoebi",
+          "type": "heading",
+          "level": 4,
+          "text": "Example"
+        },
+        {
+          "id": "1789733870308-162-52wb21",
+          "type": "paragraph",
+          "content": "In an insurance system, Policy could be an Entity, Address could be a Value Object and Policy with its related Policy Benefits could form an Aggregate. Different areas such as Claims and Policy Management could be separate Bounded Contexts."
+        }
+      ]
+    }
+  },
+  {
+    "title": "How do you design for scalability?",
+    "slug": "design-scalability",
+    "categoryId": "cat-1789549564541",
+    "tags": [
+      "Microservices"
+    ],
+    "difficulty": "medium",
+    "status": "published",
+    "id": "q-1789734680405",
+    "createdAt": "2026-09-18",
+    "updatedAt": "2026-09-18",
+    "order": 25,
+    "answer": {
+      "id": "a-1789734680413",
+      "questionId": "q-1789734680405",
+      "lastModified": "2026-09-18",
+      "blocks": [
+        {
+          "id": "1789734584697-163-a1guwk",
+          "type": "paragraph",
+          "content": "I design for scalability by keeping services stateless, allowing horizontal scaling, using load balancing, caching, asynchronous messaging, and database optimization. I also monitor system performance and scale individual microservices independently based on their workload."
+        },
+        {
+          "id": "1789734620730-164-now730",
+          "type": "heading",
+          "level": 4,
+          "text": "Example"
+        },
+        {
+          "id": "1789734631847-165-2qry2q",
+          "type": "paragraph",
+          "content": "If the Order Service receives high traffic, instead of increasing resources on a single instance, I can run multiple instances behind a load balancer and scale them based on CPU or request volume."
+        },
+        {
+          "id": "1789734660560-166-d9mitw",
+          "type": "note",
+          "content": "Stateless services + horizontal scaling + load balancing + caching + async processing + database optimization.",
+          "noteType": "tip"
+        }
+      ]
+    }
+  },
+  {
+    "title": "What is chaos engineering and how is it applied?",
+    "slug": "chaos-engineering",
+    "categoryId": "cat-1789549564541",
+    "tags": [
+      "Microservices"
+    ],
+    "difficulty": "medium",
+    "status": "published",
+    "id": "q-1789735340930",
+    "createdAt": "2026-09-18",
+    "updatedAt": "2026-09-18",
+    "order": 26,
+    "answer": {
+      "id": "a-1789735340938",
+      "questionId": "q-1789735340930",
+      "lastModified": "2026-09-18",
+      "blocks": [
+        {
+          "id": "1789735249390-167-r4xlur",
+          "type": "paragraph",
+          "content": "Chaos engineering is the practice of intentionally introducing controlled failures into a system to test its resilience and identify weaknesses. In microservices, we can simulate failures such as stopping a service, increasing network latency, or making a dependency unavailable, and then verify that mechanisms like retries, circuit breakers, fallbacks, and monitoring work correctly."
+        },
+        {
+          "id": "1789735299264-168-0zk8sd",
+          "type": "heading",
+          "level": 4,
+          "text": "Example"
+        },
+        {
+          "id": "1789735308688-169-zkh0nk",
+          "type": "paragraph",
+          "content": "For example, we can intentionally make the Payment Service unavailable in a test environment and verify that the Order Service handles the failure gracefully using a timeout, retry and fallback instead of bringing down the entire application."
+        }
+      ]
+    }
+  },
+  {
+    "title": "How do you perform logging in a distributed microservices system?",
+    "slug": "logging-distributed-microservices",
+    "categoryId": "cat-1789549564541",
+    "tags": [
+      "Microservices"
+    ],
+    "difficulty": "medium",
+    "status": "published",
+    "id": "q-1789736203352",
+    "createdAt": "2026-09-18",
+    "updatedAt": "2026-09-18",
+    "order": 27,
+    "answer": {
+      "id": "a-1789736203360",
+      "questionId": "q-1789736203352",
+      "lastModified": "2026-09-18",
+      "blocks": [
+        {
+          "id": "1789736115359-170-xi9pae",
+          "type": "paragraph",
+          "content": "In a distributed microservices system, I use centralized logging so logs from all services are collected and searchable in one place. I also use a unique correlation ID or trace ID for each request, so I can trace the same request across multiple services and troubleshoot failures easily."
+        },
+        {
+          "id": "1789736177514-171-64v74d",
+          "type": "heading",
+          "level": 4,
+          "text": "Example"
+        },
+        {
+          "id": "1789736183890-172-hraq8j",
+          "type": "paragraph",
+          "content": "For example, in Azure, I can use Application Insights and Azure Monitor to collect logs and traces from multiple services. If a request passes through Order, Payment and Notification services, the same correlation ID helps me track that request across all three."
+        }
+      ]
+    }
+  },
+  {
+    "title": "What is the purpose of a retry pattern?",
+    "slug": "retry-pattern",
+    "categoryId": "cat-1789549564541",
+    "tags": [
+      "Microservices"
+    ],
+    "difficulty": "medium",
+    "status": "published",
+    "id": "q-1789738621624",
+    "createdAt": "2026-09-18",
+    "updatedAt": "2026-09-18",
+    "order": 28,
+    "answer": {
+      "id": "a-1789738621631",
+      "questionId": "q-1789738621624",
+      "lastModified": "2026-09-18",
+      "blocks": [
+        {
+          "id": "1789738342564-173-y5syr0",
+          "type": "paragraph",
+          "content": "The Retry Pattern is used to automatically retry a failed operation when the failure is temporary or transient, such as a network issue, temporary service unavailability, or timeout."
+        },
+        {
+          "id": "1789738358626-174-8bo4p9",
+          "type": "paragraph",
+          "content": "Instead of failing immediately, the system retries the request a limited number of times, usually with exponential backoff between attempts."
+        },
+        {
+          "id": "1789738372480-175-73tdzx",
+          "type": "heading",
+          "level": 4,
+          "text": "Example"
+        },
+        {
+          "id": "1789738385096-176-o2gxm4",
+          "type": "paragraph",
+          "content": "Suppose Order Service calls Payment Service, but Payment Service temporarily times out:"
+        },
+        {
+          "id": "1789738571689-178-ppr1ee",
+          "type": "code",
+          "language": "markdown",
+          "code": "Order Service\n     ↓\nPayment Service → Timeout\n     ↓\nRetry after 1 sec\n     ↓\nPayment Service → Timeout\n     ↓\nRetry after 2 sec\n     ↓\nPayment Service → Success"
+        },
+        {
+          "id": "1789738605186-179-07pk0b",
+          "type": "note",
+          "content": "Retry = recover from temporary failures automatically.\n\nIn production, combine retries with timeouts and circuit breakers, and avoid retrying non-transient errors such as 400 Bad Request.",
+          "noteType": "info"
+        }
+      ]
+    }
+  },
+  {
+    "title": "What are sidecars in microservices?",
+    "slug": "sidecars",
+    "categoryId": "cat-1789549564541",
+    "tags": [
+      "Microservices"
+    ],
+    "difficulty": "medium",
+    "status": "published",
+    "id": "q-1789739236608",
+    "createdAt": "2026-09-18",
+    "updatedAt": "2026-09-18",
+    "order": 29,
+    "answer": {
+      "id": "a-1789739236616",
+      "questionId": "q-1789739236608",
+      "lastModified": "2026-09-18",
+      "blocks": [
+        {
+          "id": "1789738835307-180-8wxmma",
+          "type": "paragraph",
+          "content": "A Sidecar is a separate process or container that runs alongside a microservice and provides common supporting functionality without putting that functionality directly into the application code."
+        },
+        {
+          "id": "1789738868816-182-a7uzo2",
+          "type": "paragraph",
+          "content": "For example, a sidecar can handle logging, monitoring, security, service-to-service communication, retries, or configuration."
+        },
+        {
+          "id": "1789738867863-181-129azy",
+          "type": "heading",
+          "level": 4,
+          "text": "Example"
+        },
+        {
+          "id": "1789738932061-184-bknx03",
+          "type": "code",
+          "language": "markdown",
+          "code": "Order Service Container\n        +\nSidecar Container\n        ↓\nLogging / Monitoring / Security / Communication"
+        },
+        {
+          "id": "1789739051871-185-gd9xlm",
+          "type": "paragraph",
+          "content": "In Kubernetes, the application container and sidecar container typically run in the same Pod and can communicate over the local network."
+        }
+      ]
+    }
+  },
+  {
+    "title": "What are the best practices for deploying microservices in prod environment?",
+    "slug": "deploying-microservices-best-practices",
+    "categoryId": "cat-1789549564541",
+    "tags": [
+      "Microservices"
+    ],
+    "difficulty": "medium",
+    "status": "published",
+    "id": "q-1789739987300",
+    "createdAt": "2026-09-18",
+    "updatedAt": "2026-09-18",
+    "order": 30,
+    "answer": {
+      "id": "a-1789739987307",
+      "questionId": "q-1789739987300",
+      "lastModified": "2026-09-18",
+      "blocks": [
+        {
+          "id": "1789739445497-186-eir5o8",
+          "type": "paragraph",
+          "content": "For deploying microservices in production, I follow practices like containerization, CI/CD automation, independent deployment, health checks, centralized logging and monitoring, secure configuration, and proper scaling."
+        },
+        {
+          "id": "1789739453765-187-mm3566",
+          "type": "paragraph",
+          "content": "I also use deployment strategies such as Blue-Green or Canary deployment to reduce downtime and deployment risk, along with load balancing, autoscaling, rollback mechanisms, and secrets management."
+        },
+        {
+          "id": "1789739485630-188-yuirp0",
+          "type": "heading",
+          "level": 4,
+          "text": "Example"
+        },
+        {
+          "id": "1789739495692-189-copz9e",
+          "type": "paragraph",
+          "content": "For an Order Service:"
+        },
+        {
+          "id": "1789739508953-190-097nfa",
+          "type": "code",
+          "language": "markdown",
+          "code": "Developer → Git → CI/CD Pipeline\n                    ↓\n              Build & Test\n                    ↓\n             Docker Image\n                    ↓\n          Deploy to Kubernetes\n                    ↓\n       Health Check + Monitoring\n                    ↓\n       Canary: 5% → 25% → 100%"
+        },
+        {
+          "id": "1789739591800-195-w5zuwu",
+          "type": "heading",
+          "level": 4,
+          "text": "Keypoints:"
+        },
+        {
+          "id": "1789739585674-192-lhppb0",
+          "type": "bullet-list",
+          "items": [
+            {
+              "id": "1789739585674-193-21lext",
+              "title": "Docker/Containers",
+              "description": "consistent deployment"
+            },
+            {
+              "id": "1789739642496-196-5eu5tx",
+              "title": "CI/CD",
+              "description": "automated build, test, deployment",
+              "code": "",
+              "codeLanguage": "typescript",
+              "subItems": []
+            },
+            {
+              "id": "1789739665607-197-3gfwec",
+              "title": "Health checks",
+              "description": "detect unhealthy instances",
+              "code": "",
+              "codeLanguage": "typescript",
+              "subItems": []
+            },
+            {
+              "id": "1789739679724-198-ulqri5",
+              "title": "Load balancing",
+              "description": "distribute traffic",
+              "code": "",
+              "codeLanguage": "typescript",
+              "subItems": []
+            },
+            {
+              "id": "1789739702537-199-8qzomd",
+              "title": "Autoscaling",
+              "description": "handle changing traffic",
+              "code": "",
+              "codeLanguage": "typescript",
+              "subItems": []
+            },
+            {
+              "id": "1789739704991-200-m8rvc3",
+              "title": "Canary/Blue-Green",
+              "description": "safer releases",
+              "code": "",
+              "codeLanguage": "typescript",
+              "subItems": []
+            },
+            {
+              "id": "1789739739269-201-ezo8y6",
+              "title": "Secrets management",
+              "description": "protect credentials",
+              "code": "",
+              "codeLanguage": "typescript",
+              "subItems": []
+            },
+            {
+              "id": "1789739901278-202-c773co",
+              "title": "Centralized logging + monitoring",
+              "description": "troubleshoot issues",
+              "code": "",
+              "codeLanguage": "typescript",
+              "subItems": []
+            },
+            {
+              "id": "1789739936421-203-iboil9",
+              "title": "Rollback strategy",
+              "description": "recover quickly",
+              "code": "",
+              "codeLanguage": "typescript",
+              "subItems": []
+            },
+            {
+              "id": "1789739954555-204-b4sp66",
+              "title": "API/database backward compatibility",
+              "description": "avoid breaking consumers",
+              "code": "",
+              "codeLanguage": "typescript",
+              "subItems": []
+            }
+          ]
+        },
+        {
+          "id": "1789739559997-191-drhc0z",
+          "type": "note",
+          "content": "In production, I focus on automated CI/CD, containerization, security, observability, scalability, health checks, and zero/minimal-downtime deployment with a reliable rollback strategy.",
+          "noteType": "tip"
+        }
+      ]
+    }
+  },
+  {
+    "title": "What is a Container, and Why is it Used in Microservices?",
+    "slug": "what-is-a-container-and-why-is-it-used-in-microservices-",
+    "categoryId": "cat-1",
+    "tags": [],
+    "difficulty": "medium",
+    "status": "published",
+    "id": "q-1789562243202",
+    "createdAt": "2026-09-16",
+    "updatedAt": "2026-09-16",
+    "order": 261,
+    "answer": {
+      "id": "a-1789562243208",
+      "questionId": "q-1789562243202",
+      "lastModified": "2026-09-16",
+      "blocks": [
+        {
+          "id": "1789561493287-47-pr4h5k",
+          "type": "paragraph",
+          "content": "A container is a lightweight, standalone unit that bundles an application along with its dependencies, including libraries, configurations, and runtime to ensure consistency across different environments."
+        },
+        {
+          "id": "1789561494255-48-arnggl",
+          "type": "image",
+          "imageUrl": "/images/angular/1789561500057.png",
+          "alt": "container diagram",
+          "alignment": "center",
+          "width": "100%",
+          "caption": "container diagram"
+        },
+        {
+          "id": "1789561961994-49-c54s2g",
+          "type": "heading",
+          "level": 4,
+          "text": "Why are Containers used in Microservices?"
+        },
+        {
+          "id": "1789561982237-51-62k8om",
+          "type": "bullet-list",
+          "items": [
+            {
+              "id": "1789561982237-52-coewso",
+              "title": "Isolation",
+              "description": "Each microservice runs independently in its own container."
+            },
+            {
+              "id": "1789562021127-53-7tr28b",
+              "title": "Portability",
+              "description": "The same container can run on a developer machine, server, or cloud environment.",
+              "code": "",
+              "codeLanguage": "typescript",
+              "subItems": []
+            },
+            {
+              "id": "1789562023842-54-l3pxcd",
+              "title": "Scalability",
+              "description": "Multiple instances of a service can be easily created when demand increases.",
+              "code": "",
+              "codeLanguage": "typescript",
+              "subItems": []
+            },
+            {
+              "id": "1789562027695-55-jjik27",
+              "title": "Consistent Environment",
+              "description": "Avoids the common \"works on my machine\" problem.",
+              "code": "",
+              "codeLanguage": "typescript",
+              "subItems": []
+            },
+            {
+              "id": "1789562067169-56-q7uhys",
+              "title": "Fast Deployment",
+              "description": "Containers are lightweight and can start quickly.",
+              "code": "",
+              "codeLanguage": "typescript",
+              "subItems": []
+            },
+            {
+              "id": "1789562080013-57-mj8fw4",
+              "title": "Independent Deployment",
+              "description": "Each microservice can be built, deployed, updated, and restarted independently.",
+              "code": "",
+              "codeLanguage": "typescript",
+              "subItems": []
+            }
+          ]
+        },
+        {
+          "id": "1789562160658-58-jyun9f",
+          "type": "code",
+          "language": "markdown",
+          "code": "                    API Gateway\n                         |\n        +----------------+----------------+\n        |                |                |\n   User Service     Order Service    Payment Service\n        |                |                |\n   Container 1      Container 2      Container 3"
+        },
+        {
+          "id": "1789562224844-59-d5mgau",
+          "type": "note",
+          "content": "Docker is commonly used to create and run containers, while platforms such as Kubernetes can manage containers at scale.",
+          "noteType": "tip"
+        }
+      ]
+    }
+  }
+]

@@ -4,6 +4,7 @@ import { markdownToBlocks } from "./markdownToBlocks";
 // Import seed data
 import questionsJson from "../questions.json";
 import microserviceQuestions from "./microservice-questions.json";
+import customQuestionsSeed from "./custom-questions.json";
 
 // ============================================
 // STORAGE KEYS
@@ -18,8 +19,8 @@ const KEYS = {
   SEED_VERSION: "qa_seed_version",
 };
 
-const CURRENT_VERSION = "1.0.7";
-const SEED_VERSION = "3"; // Bump this to re-seed questions
+const CURRENT_VERSION = "1.0.8";
+const SEED_VERSION = "4"; // Bump this to re-seed questions (4 = include server-saved custom-questions.json)
 
 // ============================================
 // CATEGORIES
@@ -94,6 +95,23 @@ function convertMicroserviceQuestions(): any[] {
       },
     };
   });
+}
+
+function getCustomSeedQuestions(): any[] {
+  return Array.isArray(customQuestionsSeed) ? (customQuestionsSeed as any[]) : [];
+}
+
+function getAllSeedQuestions(): any[] {
+  return [...convertAngularQuestions(), ...convertMicroserviceQuestions(), ...getCustomSeedQuestions()];
+}
+
+export function isSeedQuestionId(id: string): boolean {
+  return getAllSeedQuestions().some((q) => q.id === id);
+}
+
+export function extractCustomQuestions(allQuestions: any[]): any[] {
+  const seedIds = new Set(getAllSeedQuestions().map((q) => q.id));
+  return allQuestions.filter((q) => !seedIds.has(q.id));
 }
 
 function extractTags(question: string): string[] {
@@ -199,7 +217,7 @@ function initializeStorage(): void {
 
   // First time initialization
   if (!initialized) {
-    const allQuestions = [...convertAngularQuestions(), ...convertMicroserviceQuestions()];
+    const allQuestions = getAllSeedQuestions();
     localStorage.setItem(KEYS.CATEGORIES, JSON.stringify(seedCategories));
     localStorage.setItem(KEYS.QUESTIONS, JSON.stringify(allQuestions));
     localStorage.setItem(KEYS.INITIALIZED, "true");
@@ -214,7 +232,7 @@ function initializeStorage(): void {
     const existingQuestions = getQuestionsFromStorage();
 
     const mergedCategories = mergeCategories(existingCategories, seedCategories);
-    const mergedQuestions = mergeQuestions(existingQuestions, [...convertAngularQuestions(), ...convertMicroserviceQuestions()]);
+    const mergedQuestions = mergeQuestions(existingQuestions, getAllSeedQuestions());
 
     localStorage.setItem(KEYS.CATEGORIES, JSON.stringify(mergedCategories));
     localStorage.setItem(KEYS.QUESTIONS, JSON.stringify(mergedQuestions));
@@ -224,7 +242,7 @@ function initializeStorage(): void {
   // Seed version change: add new seed questions
   if (seedVersion !== SEED_VERSION) {
     const existingQuestions = getQuestionsFromStorage();
-    const allSeedQuestions = [...convertAngularQuestions(), ...convertMicroserviceQuestions()];
+    const allSeedQuestions = getAllSeedQuestions();
     const mergedQuestions = mergeQuestions(existingQuestions, allSeedQuestions);
 
     localStorage.setItem(KEYS.QUESTIONS, JSON.stringify(mergedQuestions));
@@ -268,6 +286,44 @@ export function getQuestions(): any[] {
 export function saveQuestions(questions: any[]): void {
   if (!isClient()) return;
   localStorage.setItem(KEYS.QUESTIONS, JSON.stringify(questions));
+}
+
+// ============================================
+// SERVER PERSISTENCE (JSON file, source of truth)
+// localStorage stays only as offline cache.
+// Every admin change is auto-pushed here.
+// ============================================
+
+export async function fetchServerCustomQuestions(): Promise<any[]> {
+  if (!isClient()) return [];
+  try {
+    const res = await fetch("/api/custom-questions", { cache: "no-store" });
+    if (!res.ok) return [];
+    const data = await res.json();
+    return Array.isArray(data.questions) ? data.questions : [];
+  } catch {
+    return [];
+  }
+}
+
+export function mergeServerCustomQuestions(localQuestions: any[], serverCustom: any[]): any[] {
+  if (!serverCustom || serverCustom.length === 0) return localQuestions;
+  const ids = new Set(localQuestions.map((q) => q?.id));
+  const missing = serverCustom.filter((q) => q && q.id && !ids.has(q.id));
+  return missing.length > 0 ? [...localQuestions, ...missing] : localQuestions;
+}
+
+export async function persistCustomQuestionsToServer(allQuestions: any[]): Promise<number> {
+  if (!isClient()) return 0;
+  const custom = extractCustomQuestions(allQuestions);
+  const res = await fetch("/api/custom-questions", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ questions: custom }),
+  });
+  if (!res.ok) throw new Error("server save failed");
+  const data = await res.json();
+  return data.count ?? custom.length;
 }
 
 export function getQuestionById(id: string): any {
