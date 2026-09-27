@@ -5,10 +5,12 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useAdmin } from "./AdminContext";
 import { extractCustomQuestions, saveQuestions } from "../data/storage";
+import { markdownToBlocks } from "../data/markdownToBlocks";
+import { Question } from "./types";
 
 export default function QuestionManager() {
   const router = useRouter();
-  const { questions, categories, deleteQuestion, duplicateQuestion, updateQuestion } = useAdmin();
+  const { questions, categories, deleteQuestion, duplicateQuestion, updateQuestion, importQuestions } = useAdmin();
   const [search, setSearch] = useState("");
   const [filterCat, setFilterCat] = useState("all");
   const [filterStatus, setFilterStatus] = useState("all");
@@ -41,21 +43,102 @@ export default function QuestionManager() {
     setSyncStatus(`Exported ${questions.length} questions. Keep this file safe.`);
   };
 
-  const handleImportFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
+  // Import-to-site upload panel state
+  const [importOpen, setImportOpen] = useState(false);
+  const [importRaw, setImportRaw] = useState("");
+  const [importFileName, setImportFileName] = useState("");
+  const [importTargetCat, setImportTargetCat] = useState("keep");
+  const [importPreview, setImportPreview] = useState<Question[] | null>(null);
+  const [importError, setImportError] = useState("");
+  const [importing, setImporting] = useState(false);
+
+  const slugify = (s: string) =>
+    s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+
+  // Accepts full backup shape ({id,title,answer.blocks,...}) or simple
+  // seed shape ({question, answer: "markdown"}). Throws on bad data.
+  const normalizeImported = (raw: any, targetCat: string): Question[] => {
+    const list = Array.isArray(raw) ? raw : raw?.questions;
+    if (!Array.isArray(list) || list.length === 0)
+      throw new Error("JSON must be a non-empty array or { questions: [...] }.");
+    if (list.length > 500) throw new Error("Max 500 questions per upload.");
+    const now = new Date().toISOString().split("T")[0];
+    const fallbackCat = targetCat !== "keep" ? targetCat : categories[0]?.id || "cat-1";
+    return list.map((item: any, i: number) => {
+      const title = item?.title || item?.question;
+      if (!title || typeof title !== "string")
+        throw new Error(`Item ${i + 1} has no title/question.`);
+      const categoryId = targetCat !== "keep" ? targetCat : item.categoryId || fallbackCat;
+      let blocks: any[] = [];
+      if (Array.isArray(item?.answer?.blocks)) blocks = item.answer.blocks;
+      else if (typeof item?.answer === "string" && item.answer.trim())
+        blocks = markdownToBlocks(item.answer);
+      const difficulty = ["easy", "medium", "hard"].includes(item?.difficulty)
+        ? item.difficulty : "medium";
+      const status = ["draft", "published", "archived"].includes(item?.status)
+        ? item.status : "published";
+      const id = item?.id || `q-${Date.now()}-${i}`;
+      return {
+        id,
+        title: title.trim(),
+        slug: item?.slug || slugify(title),
+        categoryId,
+        tags: Array.isArray(item?.tags) ? item.tags : [],
+        difficulty,
+        status,
+        createdAt: item?.createdAt || now,
+        updatedAt: now,
+        order: 0,
+        answer: {
+          id: item?.answer?.id || `a-${Date.now()}-${i}`,
+          questionId: id,
+          lastModified: now,
+          blocks,
+        },
+      } as Question;
+    });
+  };
+
+  // Re-parse preview whenever file or target category changes
+  useEffect(() => {
+    if (!importRaw) return;
     try {
-      const text = await file.text();
-      const parsed = JSON.parse(text);
-      const list = Array.isArray(parsed) ? parsed : parsed.questions;
-      if (!Array.isArray(list)) throw new Error("bad file");
-      saveQuestions(list);
-      setSyncStatus(`Imported ${list.length} questions. Reloading...`);
-      setTimeout(() => window.location.reload(), 800);
+      setImportPreview(normalizeImported(JSON.parse(importRaw), importTargetCat));
+      setImportError("");
+    } catch (err: any) {
+      setImportPreview(null);
+      setImportError(err?.message || "Could not read that file.");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [importRaw, importTargetCat]);
+
+  const handlePickFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    setImportPreview(null);
+    setImportError("");
+    if (!file) return;
+    setImportFileName(file.name);
+    try {
+      setImportRaw(await file.text());
     } catch {
-      setSyncStatus("Import failed: not a valid backup file.");
+      setImportError("Could not read that file.");
     } finally {
       if (fileRef.current) fileRef.current.value = "";
+    }
+  };
+
+  const handleUploadImport = () => {
+    if (!importPreview || importPreview.length === 0) return;
+    setImporting(true);
+    try {
+      const n = importQuestions(importPreview);
+      setSyncStatus(`Uploaded ${n} questions to site. Auto-saving to server...`);
+      setImportOpen(false);
+      setImportPreview(null);
+      setImportRaw("");
+      setImportFileName("");
+    } finally {
+      setImporting(false);
     }
   };
 
@@ -289,21 +372,56 @@ export default function QuestionManager() {
     <div className="questions">
       <div className="page-header">
         <p className="description">Manage all questions. Drag to reorder or click # to set sequence.</p>
-        <Link href="/admin/questions/new" className="btn-primary">+ Add Question</Link>
+        <div className="header-actions">
+          <button className="btn-outline-top" onClick={handleExport}>Export</button>
+          <button className="btn-outline-top" onClick={() => setImportOpen((v) => !v)}>Import</button>
+          <Link href="/admin/questions/new" className="btn-primary">+ Add Question</Link>
+        </div>
       </div>
 
+      {importOpen && (
+        <div className="import-panel">
+          <h3>Import questions from JSON</h3>
+          <div className="import-grid">
+            <div>
+              <label>1. Choose file from this device</label>
+              <input ref={fileRef} type="file" accept="application/json,.json" onChange={handlePickFile} />
+              {importFileName && <span className="file-name">{importFileName}</span>}
+            </div>
+            <div>
+              <label>2. Upload into category</label>
+              <select value={importTargetCat} onChange={(e) => setImportTargetCat(e.target.value)}>
+                <option value="keep">Keep original categories</option>
+                {categories.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}
+              </select>
+            </div>
+          </div>
+          {importError && <p className="import-error">{importError}</p>}
+          {importPreview && (
+            <p className="import-preview">
+              {importPreview.length} questions ready — e.g. &ldquo;{importPreview[0]?.title}&rdquo;
+              {importPreview.length > 1 ? ` (+${importPreview.length - 1} more)` : ""}.
+              Status defaults to published unless the file says otherwise.
+            </p>
+          )}
+          <div className="import-actions">
+            <button className="btn-backup" onClick={() => { setImportOpen(false); setImportPreview(null); setImportRaw(""); setImportError(""); }}>Cancel</button>
+            <button className="btn-backup primary" disabled={!importPreview || importing} onClick={handleUploadImport}>
+              {importing ? "Uploading..." : `Upload ${importPreview ? importPreview.length : 0} to site`}
+            </button>
+          </div>
+        </div>
+      )}
+
       <div className="backup-bar">
-        <span className="backup-hint">Auto-saves to server JSON file. Export backup after big sessions.</span>
+        <span className="backup-hint">Changes auto-save to the server JSON file.</span>
         <div className="backup-actions">
-          <button className="btn-backup" onClick={handleExport} disabled={syncing}>Export backup</button>
-          <button className="btn-backup" onClick={() => fileRef.current?.click()} disabled={syncing}>Import backup</button>
           <button className="btn-backup primary" onClick={handlePushToServer} disabled={syncing}>
             {syncing ? "Working..." : "Push to server"}
           </button>
           <button className="btn-backup" onClick={handlePullFromServer} disabled={syncing}>Pull from server</button>
         </div>
         {syncStatus && <p className="sync-status">{syncStatus}</p>}
-        <input ref={fileRef} type="file" accept="application/json" style={{ display: "none" }} onChange={handleImportFile} />
       </div>
 
       <div className="filters">
@@ -419,6 +537,31 @@ export default function QuestionManager() {
           display: inline-block; cursor: pointer;
         }
         .btn-primary:hover { background: #2563eb; }
+        .header-actions { display: flex; gap: 8px; align-items: center; }
+        .btn-outline-top {
+          padding: 10px 18px; background: white; border: 1px solid #e2e8f0;
+          border-radius: 8px; font-size: 14px; font-weight: 500; cursor: pointer; color: #475569;
+        }
+        .btn-outline-top:hover { border-color: #3b82f6; color: #3b82f6; }
+        .import-panel {
+          background: white; border: 1px dashed #93c5fd; border-radius: 12px;
+          padding: 16px 18px; margin-bottom: 16px;
+        }
+        .import-panel h3 { margin: 0 0 12px 0; font-size: 14px; color: #0f172a; }
+        .import-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+        .import-grid label { font-size: 12px; font-weight: 600; color: #475569; display: block; margin-bottom: 6px; }
+        .import-grid input[type="file"], .import-grid select {
+          width: 100%; padding: 10px 12px; border: 1px solid #e2e8f0;
+          border-radius: 8px; font-size: 13px; background: white; box-sizing: border-box;
+        }
+        .file-name { font-size: 12px; color: #3b82f6; display: block; margin-top: 6px; }
+        .import-error { color: #dc2626; font-size: 12px; margin: 10px 0 0 0; }
+        .import-preview {
+          color: #166534; background: #f0fdf4; border: 1px solid #bbf7d0;
+          padding: 8px 12px; border-radius: 8px; font-size: 12px; margin: 10px 0 0 0;
+        }
+        .import-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 12px; }
+        @media (max-width: 640px) { .import-grid { grid-template-columns: 1fr; } }
         .backup-bar {
           background: #fffbeb; border: 1px solid #fde68a; border-radius: 10px;
           padding: 10px 14px; margin-bottom: 16px;

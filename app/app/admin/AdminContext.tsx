@@ -19,6 +19,7 @@ interface AdminContextType {
   reorderCategories: (ids: string[]) => void;
   moveCategory: (id: string, newParentId?: string) => void;
   addQuestion: (q: Omit<Question, "id" | "createdAt" | "updatedAt" | "order">) => string;
+  importQuestions: (items: Question[]) => number;
   updateQuestion: (id: string, updates: Partial<Question>) => void;
   deleteQuestion: (id: string) => void;
   duplicateQuestion: (id: string) => string | null;
@@ -128,6 +129,31 @@ export function AdminProvider({ children }: { children: ReactNode }) {
     return id;
   }, [questions]);
 
+  const importQuestions = useCallback((items: Question[]) => {
+    const now = new Date().toISOString().split("T")[0];
+    setQuestions((prev) => {
+      const ids = new Set(prev.map((q) => q.id));
+      const baseOrder = prev.length;
+      const fresh = items.map((q, i) => {
+        let id = q.id && !ids.has(q.id) ? q.id : `q-${Date.now()}-${i}`;
+        ids.add(id);
+        return {
+          ...q,
+          id,
+          createdAt: q.createdAt || now,
+          updatedAt: now,
+          order: baseOrder + i + 1,
+          answer: q.answer ? { ...q.answer, id: q.answer.id || `a-${Date.now()}-${i}`, questionId: id, lastModified: now } : q.answer,
+        };
+      });
+      const updated = [...prev, ...fresh];
+      saveQuestions(updated);
+      return updated;
+    });
+    // Auto-sync effect persists to server JSON on questions change
+    return items.length;
+  }, []);
+
   const updateQuestion = useCallback((id: string, updates: Partial<Question>) => {
     const now = new Date().toISOString().split("T")[0];
     setQuestions((prev) => {
@@ -232,7 +258,7 @@ export function AdminProvider({ children }: { children: ReactNode }) {
     <AdminContext.Provider value={{
       categories, questions, media, sidebarMenu,
       addCategory, updateCategory, deleteCategory, reorderCategories, moveCategory,
-      addQuestion, updateQuestion, deleteQuestion, duplicateQuestion,
+      addQuestion, importQuestions, updateQuestion, deleteQuestion, duplicateQuestion,
       updateAnswer, getQuestion, getCategory,
       updateSidebarMenu, addSidebarItem, updateSidebarItem, deleteSidebarItem,
     }}>
