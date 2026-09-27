@@ -22,6 +22,7 @@ interface AdminContextType {
   importQuestions: (items: Question[]) => number;
   updateQuestion: (id: string, updates: Partial<Question>) => void;
   deleteQuestion: (id: string) => void;
+  deleteQuestions: (ids: string[]) => void;
   duplicateQuestion: (id: string) => string | null;
   updateAnswer: (questionId: string, blocks: AnswerBlock[], status?: "draft" | "published") => void;
   getQuestion: (id: string) => Question | undefined;
@@ -171,6 +172,15 @@ export function AdminProvider({ children }: { children: ReactNode }) {
     });
   }, []);
 
+  const deleteQuestions = useCallback((ids: string[]) => {
+    const doomed = new Set(ids);
+    setQuestions((prev) => {
+      const updated = prev.filter((q) => !doomed.has(q.id));
+      saveQuestions(updated);
+      return updated;
+    });
+  }, []);
+
   const duplicateQuestion = useCallback((id: string) => {
     const original = questions.find((q) => q.id === id);
     if (!original) return null;
@@ -258,7 +268,7 @@ export function AdminProvider({ children }: { children: ReactNode }) {
     <AdminContext.Provider value={{
       categories, questions, media, sidebarMenu,
       addCategory, updateCategory, deleteCategory, reorderCategories, moveCategory,
-      addQuestion, importQuestions, updateQuestion, deleteQuestion, duplicateQuestion,
+      addQuestion, importQuestions, updateQuestion, deleteQuestion, deleteQuestions, duplicateQuestion,
       updateAnswer, getQuestion, getCategory,
       updateSidebarMenu, addSidebarItem, updateSidebarItem, deleteSidebarItem,
     }}>

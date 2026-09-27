@@ -10,7 +10,7 @@ import { Question } from "./types";
 
 export default function QuestionManager() {
   const router = useRouter();
-  const { questions, categories, deleteQuestion, duplicateQuestion, updateQuestion, importQuestions } = useAdmin();
+  const { questions, categories, deleteQuestion, deleteQuestions, duplicateQuestion, updateQuestion, importQuestions } = useAdmin();
   const [search, setSearch] = useState("");
   const [filterCat, setFilterCat] = useState("all");
   const [filterStatus, setFilterStatus] = useState("all");
@@ -228,7 +228,56 @@ export default function QuestionManager() {
   };
 
   const handleDelete = (id: string) => {
-    if (confirm("Delete this question?")) deleteQuestion(id);
+    if (confirm("Delete this question?")) {
+      deleteQuestion(id);
+      setSelected((prev) => {
+        const next = new Set(prev);
+        next.delete(id);
+        return next;
+      });
+    }
+  };
+
+  // Bulk selection + delete
+  const [selected, setSelected] = useState<Set<string>>(new Set());
+
+  const allFilteredSelected = filtered.length > 0 && filtered.every((q) => selected.has(q.id));
+
+  const toggleOne = (id: string) => {
+    setSelected((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  };
+
+  const toggleAllFiltered = () => {
+    if (allFilteredSelected) {
+      setSelected((prev) => {
+        const next = new Set(prev);
+        filtered.forEach((q) => next.delete(q.id));
+        return next;
+      });
+    } else {
+      setSelected((prev) => new Set([...prev, ...filtered.map((q) => q.id)]));
+    }
+  };
+
+  const handleDeleteSelected = () => {
+    if (selected.size === 0) return;
+    if (confirm(`Delete ${selected.size} selected question(s)? This cannot be undone.`)) {
+      deleteQuestions([...selected]);
+      setSelected(new Set());
+    }
+  };
+
+  const handleDeleteAll = () => {
+    if (questions.length === 0) return;
+    if (!confirm(`Delete ALL ${questions.length} questions? This wipes the site and the server copy. Cannot be undone.`)) return;
+    if (!confirm("Really sure? Last chance — everything goes.")) return;
+    deleteQuestions(questions.map((q) => q.id));
+    setSelected(new Set());
   };
 
   const handleToggleStatus = (id: string, current: string) => {
@@ -437,10 +486,28 @@ export default function QuestionManager() {
         </select>
       </div>
 
+      <div className="bulk-bar">
+        <span className="bulk-info">
+          {selected.size > 0 ? `${selected.size} selected` : `${filtered.length} shown`}
+        </span>
+        <div className="bulk-actions">
+          <button className="btn-danger-outline" disabled={selected.size === 0} onClick={handleDeleteSelected}>
+            Delete Selected{selected.size > 0 ? ` (${selected.size})` : ""}
+          </button>
+          {selected.size > 0 && (
+            <button className="btn-backup" onClick={() => setSelected(new Set())}>Clear</button>
+          )}
+          <button className="btn-danger" onClick={handleDeleteAll}>Delete All</button>
+        </div>
+      </div>
+
       <div className="table-card">
         <table className="data-table">
           <thead>
             <tr>
+              <th style={{ width: 36 }}>
+                <input type="checkbox" checked={allFilteredSelected} onChange={toggleAllFiltered} title="Select all shown" />
+              </th>
               <th style={{ width: 40 }}>☰</th>
               <th style={{ width: 60 }}>#</th>
               <th>Question</th>
@@ -468,6 +535,9 @@ export default function QuestionManager() {
                   ${dragOverId === q.id && draggedId !== q.id ? "drag-over" : ""}
                 `}
               >
+                <td onClick={(e) => e.stopPropagation()}>
+                  <input type="checkbox" checked={selected.has(q.id)} onChange={() => toggleOne(q.id)} title="Select" />
+                </td>
                 <td className="drag-handle">
                   <span className="drag-icon">☰</span>
                 </td>
@@ -518,7 +588,7 @@ export default function QuestionManager() {
               </tr>
             ))}
             {filtered.length === 0 && (
-              <tr><td colSpan={8} className="empty">No questions found</td></tr>
+              <tr><td colSpan={9} className="empty">No questions found</td></tr>
             )}
           </tbody>
         </table>
@@ -577,7 +647,26 @@ export default function QuestionManager() {
         .btn-backup.primary:hover:not(:disabled) { background: #2563eb; color: white; }
         .btn-backup:disabled { opacity: 0.6; cursor: wait; }
         .sync-status { font-size: 12px; color: #475569; margin: 8px 0 0 0; }
-        .filters { display: flex; gap: 10px; margin-bottom: 16px; }
+        .filters { display: flex; gap: 10px; margin-bottom: 12px; }
+        .bulk-bar {
+          display: flex; justify-content: space-between; align-items: center;
+          background: white; border: 1px solid #e2e8f0; border-radius: 10px;
+          padding: 8px 14px; margin-bottom: 16px;
+        }
+        .bulk-info { font-size: 12px; font-weight: 600; color: #475569; }
+        .bulk-actions { display: flex; gap: 8px; }
+        .btn-danger-outline {
+          padding: 8px 14px; background: white; border: 1px solid #fca5a5;
+          border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer; color: #dc2626;
+        }
+        .btn-danger-outline:hover:not(:disabled) { background: #fef2f2; }
+        .btn-danger-outline:disabled { opacity: 0.4; cursor: not-allowed; }
+        .btn-danger {
+          padding: 8px 14px; background: #dc2626; border: 1px solid #dc2626;
+          border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer; color: white;
+        }
+        .btn-danger:hover { background: #b91c1c; }
+        .data-table input[type="checkbox"] { width: 15px; height: 15px; cursor: pointer; accent-color: #3b82f6; }
         .search {
           flex: 1; min-width: 200px; padding: 10px 14px; border: 1px solid #e2e8f0;
           border-radius: 8px; font-size: 13px;
