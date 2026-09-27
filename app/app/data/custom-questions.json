@@ -2,7 +2,7 @@
   {
     "title": "What is Mircoservice?",
     "slug": "mircoservice-define",
-    "categoryId": "cat-1789549564541",
+    "categoryId": "cat-6",
     "tags": [
       "Microservice"
     ],
@@ -10,7 +10,7 @@
     "status": "published",
     "id": "q-1789549670460",
     "createdAt": "2026-09-16",
-    "updatedAt": "2026-09-16",
+    "updatedAt": "2026-09-27",
     "order": 1,
     "answer": {
       "id": "a-1789549670467",
@@ -37,7 +37,7 @@
   {
     "title": "How do Microservices differ from Monolithic Architecture?",
     "slug": "microservice-architecture",
-    "categoryId": "cat-1789549564541",
+    "categoryId": "cat-6",
     "tags": [
       "Microservice"
     ],
@@ -45,7 +45,7 @@
     "status": "published",
     "id": "q-1789549970598",
     "createdAt": "2026-09-16",
-    "updatedAt": "2026-09-16",
+    "updatedAt": "2026-09-27",
     "order": 2,
     "answer": {
       "id": "a-1789549970604",
@@ -164,7 +164,7 @@
   {
     "title": "what are the key features of microservices?",
     "slug": "features-microservices",
-    "categoryId": "cat-1789549564541",
+    "categoryId": "cat-6",
     "tags": [
       "Microservice"
     ],
@@ -172,7 +172,7 @@
     "status": "published",
     "id": "q-1789553401982",
     "createdAt": "2026-09-16",
-    "updatedAt": "2026-09-16",
+    "updatedAt": "2026-09-27",
     "order": 3,
     "answer": {
       "id": "a-1789553401990",
@@ -217,7 +217,7 @@
   {
     "title": "Name the main components of Microservices?",
     "slug": "components-microservices",
-    "categoryId": "cat-1789549564541",
+    "categoryId": "cat-6",
     "tags": [
       "Microservice"
     ],
@@ -225,7 +225,7 @@
     "status": "published",
     "id": "q-1789556851661",
     "createdAt": "2026-09-16",
-    "updatedAt": "2026-09-16",
+    "updatedAt": "2026-09-27",
     "order": 4,
     "answer": {
       "id": "a-1789556851668",
@@ -345,7 +345,7 @@
   {
     "title": "Explain the role of an API Gateway in Microservices?",
     "slug": "api-gateway-microservices",
-    "categoryId": "cat-1789549564541",
+    "categoryId": "cat-6",
     "tags": [
       "Microservices"
     ],
@@ -353,7 +353,7 @@
     "status": "published",
     "id": "q-1789559489551",
     "createdAt": "2026-09-16",
-    "updatedAt": "2026-09-16",
+    "updatedAt": "2026-09-27",
     "order": 5,
     "answer": {
       "id": "a-1789559489559",
@@ -445,7 +445,7 @@
   {
     "title": "What is Service Discovery in Microservices?",
     "slug": "service-discovery",
-    "categoryId": "cat-1789549564541",
+    "categoryId": "cat-6",
     "tags": [
       "Microservices"
     ],
@@ -453,7 +453,7 @@
     "status": "published",
     "id": "q-1789560703502",
     "createdAt": "2026-09-16",
-    "updatedAt": "2026-09-16",
+    "updatedAt": "2026-09-27",
     "order": 6,
     "answer": {
       "id": "a-1789560703509",
@@ -547,7 +547,7 @@
   {
     "title": "What is a Container, and Why is it Used in Microservices?",
     "slug": "container-in-microservice",
-    "categoryId": "cat-1789549564541",
+    "categoryId": "cat-6",
     "tags": [
       "Microservice"
     ],
@@ -555,7 +555,7 @@
     "status": "published",
     "id": "q-1789563282868",
     "createdAt": "2026-09-16",
-    "updatedAt": "2026-09-16",
+    "updatedAt": "2026-09-27",
     "order": 7,
     "answer": {
       "id": "a-1789563282875",
@@ -657,7 +657,7 @@
   {
     "title": "How do Microservices Communicate with each other?",
     "slug": "microservices-communicate",
-    "categoryId": "cat-1789549564541",
+    "categoryId": "cat-6",
     "tags": [
       "Microservice"
     ],
@@ -665,7 +665,7 @@
     "status": "published",
     "id": "q-1789563893779",
     "createdAt": "2026-09-16",
-    "updatedAt": "2026-09-16",
+    "updatedAt": "2026-09-27",
     "order": 8,
     "answer": {
       "id": "a-1789563893785",
@@ -727,7 +727,7 @@
   {
     "title": "How Would You Handle a Microservice Failure?",
     "slug": "microservice-failure-handle",
-    "categoryId": "cat-1789549564541",
+    "categoryId": "cat-6",
     "tags": [
       "Microservices"
     ],
@@ -735,7 +735,7 @@
     "status": "published",
     "id": "q-1789566559134",
     "createdAt": "2026-09-16",
-    "updatedAt": "2026-09-16",
+    "updatedAt": "2026-09-27",
     "order": 9,
     "answer": {
       "id": "a-1789566559143",
@@ -753,7 +753,7 @@
   {
     "title": "How can you ensure backward compatibility in Microservices",
     "slug": "backward-compatibility-microservices",
-    "categoryId": "cat-1789549564541",
+    "categoryId": "cat-6",
     "tags": [
       "Microservices"
     ],
@@ -761,7 +761,7 @@
     "status": "published",
     "id": "q-1789570452453",
     "createdAt": "2026-09-16",
-    "updatedAt": "2026-09-17",
+    "updatedAt": "2026-09-27",
     "order": 10,
     "answer": {
       "id": "a-1789570452460",
@@ -785,7 +785,7 @@
   {
     "title": "What is the meaning of OAuth and why is it used?",
     "slug": "oauth-microservice",
-    "categoryId": "cat-1789549564541",
+    "categoryId": "cat-6",
     "tags": [
       "Microservices"
     ],
@@ -793,7 +793,7 @@
     "status": "published",
     "id": "q-1789662196596",
     "createdAt": "2026-09-17",
-    "updatedAt": "2026-09-17",
+    "updatedAt": "2026-09-27",
     "order": 11,
     "answer": {
       "id": "a-1789662196603",
@@ -920,7 +920,7 @@
   {
     "title": "What is CQRS pattern in microservices? What problem does it solve",
     "slug": "CQRS-Pattern-Microservices",
-    "categoryId": "cat-1789549564541",
+    "categoryId": "cat-6",
     "tags": [
       "Microservices"
     ],
@@ -928,7 +928,7 @@
     "status": "published",
     "id": "q-1789663091391",
     "createdAt": "2026-09-17",
-    "updatedAt": "2026-09-17",
+    "updatedAt": "2026-09-27",
     "order": 12,
     "answer": {
       "id": "a-1789663091397",
@@ -1023,7 +1023,7 @@
   {
     "title": "Compare API gateway and load balancer",
     "slug": "API-gateway-vs-Load-Balancer",
-    "categoryId": "cat-1789549564541",
+    "categoryId": "cat-6",
     "tags": [
       "Microservices"
     ],
@@ -1031,7 +1031,7 @@
     "status": "published",
     "id": "q-1789719850641",
     "createdAt": "2026-09-18",
-    "updatedAt": "2026-09-18",
+    "updatedAt": "2026-09-27",
     "order": 13,
     "answer": {
       "id": "a-1789719850646",
@@ -1148,7 +1148,7 @@
   {
     "title": "What are some common microservices design principles ?",
     "slug": "microservices-design-principles",
-    "categoryId": "cat-1789549564541",
+    "categoryId": "cat-6",
     "tags": [
       "Microservices"
     ],
@@ -1156,7 +1156,7 @@
     "status": "published",
     "id": "q-1789720536074",
     "createdAt": "2026-09-18",
-    "updatedAt": "2026-09-18",
+    "updatedAt": "2026-09-27",
     "order": 14,
     "answer": {
       "id": "a-1789720536081",
@@ -1237,7 +1237,7 @@
   {
     "title": "How do you ensure security?",
     "slug": "security-in-microservices",
-    "categoryId": "cat-1789549564541",
+    "categoryId": "cat-6",
     "tags": [
       "Microservices"
     ],
@@ -1245,7 +1245,7 @@
     "status": "published",
     "id": "q-1789721409987",
     "createdAt": "2026-09-18",
-    "updatedAt": "2026-09-18",
+    "updatedAt": "2026-09-27",
     "order": 15,
     "answer": {
       "id": "a-1789721409994",
@@ -1274,7 +1274,7 @@
   {
     "title": "What are few ways to achieve synchronous and asynchronous communication between microservices",
     "slug": "communication-async-sync-microservices",
-    "categoryId": "cat-1789549564541",
+    "categoryId": "cat-6",
     "tags": [
       "Microservices"
     ],
@@ -1282,7 +1282,7 @@
     "status": "published",
     "id": "q-1789722563709",
     "createdAt": "2026-09-18",
-    "updatedAt": "2026-09-18",
+    "updatedAt": "2026-09-27",
     "order": 16,
     "answer": {
       "id": "a-1789722563716",
@@ -1344,7 +1344,7 @@
   {
     "title": "How do you implement rate limiting?",
     "slug": "rate-limiting-microservice",
-    "categoryId": "cat-1789549564541",
+    "categoryId": "cat-6",
     "tags": [
       "Microservices"
     ],
@@ -1352,7 +1352,7 @@
     "status": "published",
     "id": "q-1789724178430",
     "createdAt": "2026-09-18",
-    "updatedAt": "2026-09-18",
+    "updatedAt": "2026-09-27",
     "order": 17,
     "answer": {
       "id": "a-1789724178438",
@@ -1387,7 +1387,7 @@
   {
     "title": "What is event driven architecture in microservices?",
     "slug": "event-driven-architecture-microservices",
-    "categoryId": "cat-1789549564541",
+    "categoryId": "cat-6",
     "tags": [
       "Microservices"
     ],
@@ -1395,7 +1395,7 @@
     "status": "published",
     "id": "q-1789724918488",
     "createdAt": "2026-09-18",
-    "updatedAt": "2026-09-18",
+    "updatedAt": "2026-09-27",
     "order": 18,
     "answer": {
       "id": "a-1789724918495",
@@ -1430,7 +1430,7 @@
   {
     "title": "What is idempotency and why is it important in microservices?",
     "slug": "idempotency-microservices",
-    "categoryId": "cat-1789549564541",
+    "categoryId": "cat-6",
     "tags": [
       "Microservices"
     ],
@@ -1438,7 +1438,7 @@
     "status": "published",
     "id": "q-1789726614321",
     "createdAt": "2026-09-18",
-    "updatedAt": "2026-09-18",
+    "updatedAt": "2026-09-27",
     "order": 19,
     "answer": {
       "id": "a-1789726614327",
@@ -1473,7 +1473,7 @@
   {
     "title": "What is database sharding and why is it used in microservices",
     "slug": "database-sharding-microservice",
-    "categoryId": "cat-1789549564541",
+    "categoryId": "cat-6",
     "tags": [
       "Microservices"
     ],
@@ -1481,7 +1481,7 @@
     "status": "published",
     "id": "q-1789726846116",
     "createdAt": "2026-09-18",
-    "updatedAt": "2026-09-18",
+    "updatedAt": "2026-09-27",
     "order": 20,
     "answer": {
       "id": "a-1789726846124",
@@ -1525,7 +1525,7 @@
   {
     "title": "How do you handle data consistency in Microservices?",
     "slug": "data-consistency",
-    "categoryId": "cat-1789549564541",
+    "categoryId": "cat-6",
     "tags": [
       "Microservices"
     ],
@@ -1533,7 +1533,7 @@
     "status": "published",
     "id": "q-1789729953657",
     "createdAt": "2026-09-18",
-    "updatedAt": "2026-09-18",
+    "updatedAt": "2026-09-27",
     "order": 21,
     "answer": {
       "id": "a-1789729953664",
@@ -1562,7 +1562,7 @@
   {
     "title": "What is canary deployment",
     "slug": "Canary-deployment",
-    "categoryId": "cat-1789549564541",
+    "categoryId": "cat-6",
     "tags": [
       "Microservices"
     ],
@@ -1570,7 +1570,7 @@
     "status": "published",
     "id": "q-1789730743191",
     "createdAt": "2026-09-18",
-    "updatedAt": "2026-09-18",
+    "updatedAt": "2026-09-27",
     "order": 22,
     "answer": {
       "id": "a-1789730743199",
@@ -1606,7 +1606,7 @@
   {
     "title": "How would you monitor microservices?",
     "slug": "monitor-microservices",
-    "categoryId": "cat-1789549564541",
+    "categoryId": "cat-6",
     "tags": [
       "Microservices"
     ],
@@ -1614,7 +1614,7 @@
     "status": "published",
     "id": "q-1789731867831",
     "createdAt": "2026-09-18",
-    "updatedAt": "2026-09-18",
+    "updatedAt": "2026-09-27",
     "order": 23,
     "answer": {
       "id": "a-1789731867838",
@@ -1643,7 +1643,7 @@
   {
     "title": "What are the DDD principles?",
     "slug": "ddd-principles",
-    "categoryId": "cat-1789549564541",
+    "categoryId": "cat-6",
     "tags": [
       "MIcroservices"
     ],
@@ -1651,7 +1651,7 @@
     "status": "published",
     "id": "q-1789733987623",
     "createdAt": "2026-09-18",
-    "updatedAt": "2026-09-18",
+    "updatedAt": "2026-09-27",
     "order": 24,
     "answer": {
       "id": "a-1789733987630",
@@ -1737,7 +1737,7 @@
   {
     "title": "How do you design for scalability?",
     "slug": "design-scalability",
-    "categoryId": "cat-1789549564541",
+    "categoryId": "cat-6",
     "tags": [
       "Microservices"
     ],
@@ -1745,7 +1745,7 @@
     "status": "published",
     "id": "q-1789734680405",
     "createdAt": "2026-09-18",
-    "updatedAt": "2026-09-18",
+    "updatedAt": "2026-09-27",
     "order": 25,
     "answer": {
       "id": "a-1789734680413",
@@ -1780,7 +1780,7 @@
   {
     "title": "What is chaos engineering and how is it applied?",
     "slug": "chaos-engineering",
-    "categoryId": "cat-1789549564541",
+    "categoryId": "cat-6",
     "tags": [
       "Microservices"
     ],
@@ -1788,7 +1788,7 @@
     "status": "published",
     "id": "q-1789735340930",
     "createdAt": "2026-09-18",
-    "updatedAt": "2026-09-18",
+    "updatedAt": "2026-09-27",
     "order": 26,
     "answer": {
       "id": "a-1789735340938",
@@ -1817,7 +1817,7 @@
   {
     "title": "How do you perform logging in a distributed microservices system?",
     "slug": "logging-distributed-microservices",
-    "categoryId": "cat-1789549564541",
+    "categoryId": "cat-6",
     "tags": [
       "Microservices"
     ],
@@ -1825,7 +1825,7 @@
     "status": "published",
     "id": "q-1789736203352",
     "createdAt": "2026-09-18",
-    "updatedAt": "2026-09-18",
+    "updatedAt": "2026-09-27",
     "order": 27,
     "answer": {
       "id": "a-1789736203360",
@@ -1854,7 +1854,7 @@
   {
     "title": "What is the purpose of a retry pattern?",
     "slug": "retry-pattern",
-    "categoryId": "cat-1789549564541",
+    "categoryId": "cat-6",
     "tags": [
       "Microservices"
     ],
@@ -1862,7 +1862,7 @@
     "status": "published",
     "id": "q-1789738621624",
     "createdAt": "2026-09-18",
-    "updatedAt": "2026-09-18",
+    "updatedAt": "2026-09-27",
     "order": 28,
     "answer": {
       "id": "a-1789738621631",
@@ -1908,7 +1908,7 @@
   {
     "title": "What are sidecars in microservices?",
     "slug": "sidecars",
-    "categoryId": "cat-1789549564541",
+    "categoryId": "cat-6",
     "tags": [
       "Microservices"
     ],
@@ -1916,7 +1916,7 @@
     "status": "published",
     "id": "q-1789739236608",
     "createdAt": "2026-09-18",
-    "updatedAt": "2026-09-18",
+    "updatedAt": "2026-09-27",
     "order": 29,
     "answer": {
       "id": "a-1789739236616",
@@ -1956,7 +1956,7 @@
   {
     "title": "What are the best practices for deploying microservices in prod environment?",
     "slug": "deploying-microservices-best-practices",
-    "categoryId": "cat-1789549564541",
+    "categoryId": "cat-6",
     "tags": [
       "Microservices"
     ],
@@ -1964,7 +1964,7 @@
     "status": "published",
     "id": "q-1789739987300",
     "createdAt": "2026-09-18",
-    "updatedAt": "2026-09-18",
+    "updatedAt": "2026-09-27",
     "order": 30,
     "answer": {
       "id": "a-1789739987307",

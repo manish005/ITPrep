@@ -12,7 +12,7 @@ import Toast from "../../../../components/Toast";
 function QuestionEditor() {
   const params = useParams();
   const router = useRouter();
-  const { getQuestion, getCategory, categories, updateAnswer } = useAdmin();
+  const { getQuestion, getCategory, categories, updateQuestion, updateAnswer } = useAdmin();
 
   const questionId = String(params.id);
   const question = getQuestion(questionId);
@@ -100,6 +100,13 @@ function QuestionEditor() {
 
     const saveStatus = (status || form.status) as "draft" | "published";
 
+    updateQuestion(questionId, {
+      title: form.title.trim(),
+      slug: form.slug || form.title.toLowerCase().replace(/[^a-z0-9]+/g, "-"),
+      categoryId: form.categoryId,
+      tags: form.tags.split(",").map((t) => t.trim()).filter(Boolean),
+      difficulty: form.difficulty,
+    });
     updateAnswer(questionId, blocks, saveStatus);
 
     setToastMessage("Question saved successfully!");

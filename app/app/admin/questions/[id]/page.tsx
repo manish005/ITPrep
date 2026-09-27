@@ -12,7 +12,7 @@ import Toast from "../../../components/Toast";
 function QuestionEditor() {
   const params = useParams();
   const router = useRouter();
-  const { getQuestion, getCategory, categories, addQuestion, updateAnswer } = useAdmin();
+  const { getQuestion, getCategory, categories, addQuestion, updateQuestion, updateAnswer } = useAdmin();
 
   const isNew = params.id === "new";
   const existing = !isNew ? getQuestion(String(params.id)) : null;
@@ -97,6 +97,13 @@ function QuestionEditor() {
       setToastVisible(true);
       setTimeout(() => router.push(`/admin/questions/${id}/edit`), 1500);
     } else if (existing) {
+      updateQuestion(existing.id, {
+        title: qData.title,
+        slug: qData.slug,
+        categoryId: qData.categoryId,
+        tags: qData.tags,
+        difficulty: qData.difficulty,
+      });
       updateAnswer(existing.id, blocks, saveStatus);
       setToastMessage("Question saved successfully!");
       setToastVisible(true);
